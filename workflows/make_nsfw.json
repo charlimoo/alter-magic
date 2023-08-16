@@ -1,0 +1,638 @@
+{
+  "57": {
+    "inputs": {
+      "grow_mask_by": 2,
+      "pixels": [
+        "684",
+        0
+      ],
+      "vae": [
+        "546",
+        4
+      ],
+      "mask": [
+        "711",
+        0
+      ]
+    },
+    "class_type": "VAEEncodeForInpaint"
+  },
+  "64": {
+    "inputs": {
+      "sampler_state": "Sample",
+      "seed": 1063953977217274,
+      "steps": 20,
+      "cfg": 1.5999755859375,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1,
+      "preview_image": "Enabled",
+      "model": [
+        "546",
+        0
+      ],
+      "positive": [
+        "592",
+        0
+      ],
+      "negative": [
+        "671",
+        0
+      ],
+      "latent_image": [
+        "57",
+        0
+      ],
+      "optional_vae": [
+        "546",
+        4
+      ]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "85": {
+    "inputs": {
+      "sampler_state": "Sample",
+      "seed": 1066379247421214,
+      "steps": 15,
+      "cfg": 3.000030517578125,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.57,
+      "preview_image": "Enabled",
+      "model": [
+        "64",
+        0
+      ],
+      "positive": [
+        "585",
+        0
+      ],
+      "negative": [
+        "669",
+        0
+      ],
+      "latent_image": [
+        "64",
+        3
+      ],
+      "optional_vae": [
+        "64",
+        4
+      ]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "133": {
+    "inputs": {
+      "image": "Messi-1.jpg.webp",
+      "choose file to upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "134": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "width": 512,
+      "height": 512,
+      "crop": "center",
+      "image": [
+        "133",
+        0
+      ]
+    },
+    "class_type": "ImageScale"
+  },
+  "546": {
+    "inputs": {
+      "ckpt_name": "realNotRealNSFW_v10.safetensors",
+      "vae_name": "Baked VAE",
+      "clip_skip": -1,
+      "lora_name": "None",
+      "lora_model_strength": 0.7745452880859379,
+      "lora_clip_strength": 1,
+      "positive": "",
+      "negative": "",
+      "empty_latent_width": 512,
+      "empty_latent_height": 512,
+      "batch_size": 1
+    },
+    "class_type": "Efficient Loader"
+  },
+  "585": {
+    "inputs": {
+      "strength": 0.5800000000000003,
+      "conditioning": [
+        "668",
+        0
+      ],
+      "control_net": [
+        "586",
+        0
+      ],
+      "image": [
+        "588",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "586": {
+    "inputs": {
+      "control_net_name": "controlnet11Models_softedge.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "588": {
+    "inputs": {
+      "version": "v1.1",
+      "safe": "enable",
+      "image": [
+        "64",
+        5
+      ]
+    },
+    "class_type": "HEDPreprocessor"
+  },
+  "589": {
+    "inputs": {
+      "detect_hand": "enable",
+      "detect_body": "enable",
+      "detect_face": "enable",
+      "version": "v1.1",
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "OpenposePreprocessor"
+  },
+  "591": {
+    "inputs": {
+      "control_net_name": "controlnet11Models_openpose.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "592": {
+    "inputs": {
+      "strength": 1,
+      "conditioning": [
+        "670",
+        0
+      ],
+      "control_net": [
+        "591",
+        0
+      ],
+      "image": [
+        "589",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "597": {
+    "inputs": {
+      "model_name": "segm/deepfashion2_yolov8s-seg.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "598": {
+    "inputs": {
+      "segs": [
+        "601",
+        0
+      ]
+    },
+    "class_type": "SegsToCombinedMask"
+  },
+  "599": {
+    "inputs": {
+      "mask": [
+        "605",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "601": {
+    "inputs": {
+      "threshold": 0.1,
+      "dilation": 4,
+      "crop_factor": 1.2000000000000104,
+      "drop_size": 8,
+      "segm_detector": [
+        "597",
+        1
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SegmDetectorSEGS"
+  },
+  "604": {
+    "inputs": {
+      "distance": 10,
+      "op": "erode",
+      "image": [
+        "599",
+        0
+      ]
+    },
+    "class_type": "Mask Morphology"
+  },
+  "605": {
+    "inputs": {
+      "mask": [
+        "739",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "624": {
+    "inputs": {
+      "mask": [
+        "735",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "625": {
+    "inputs": {
+      "image": [
+        "626",
+        0
+      ]
+    },
+    "class_type": "ImageInvert"
+  },
+  "626": {
+    "inputs": {
+      "radius": 7,
+      "sigma_factor": 1,
+      "image": [
+        "627",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "627": {
+    "inputs": {
+      "distance": 2,
+      "op": "dilate",
+      "image": [
+        "624",
+        0
+      ]
+    },
+    "class_type": "Mask Morphology"
+  },
+  "631": {
+    "inputs": {
+      "model_name": "bbox/face_yolov8m.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "642": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader"
+  },
+  "643": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "642",
+        0
+      ],
+      "segs": [
+        "644",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorSegmented"
+  },
+  "644": {
+    "inputs": {
+      "threshold": 0.4440002441406251,
+      "dilation": 10,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "bbox_detector": [
+        "631",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS"
+  },
+  "650": {
+    "inputs": {
+      "model_name": "bbox/hand_yolov8n.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "651": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader"
+  },
+  "652": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "651",
+        0
+      ],
+      "segs": [
+        "653",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorSegmented"
+  },
+  "653": {
+    "inputs": {
+      "threshold": 0.40545471191406257,
+      "dilation": 10,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "bbox_detector": [
+        "650",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS"
+  },
+  "668": {
+    "inputs": {
+      "text": "naked++, nude+, refined, smooth, body imperfection, tattoo-",
+      "clip": [
+        "546",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "669": {
+    "inputs": {
+      "text": "cloth+++, cloths+++, fabric+++++++++, panties, ugly, deformed, text, watermark, leather coat+++, leather+++++++, jacket++, dress+",
+      "clip": [
+        "546",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "670": {
+    "inputs": {
+      "text": "naked+++, nude++",
+      "clip": [
+        "546",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "671": {
+    "inputs": {
+      "text": "cloth+++, cloths+++, fabric+++++++++, panties, ugly, deformed, text, watermark, leather coat+++, leather+++++++, jacket++, dress+",
+      "clip": [
+        "546",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "684": {
+    "inputs": {
+      "kind": "RGB",
+      "image": [
+        "700",
+        0
+      ]
+    },
+    "class_type": "Change Channel Count"
+  },
+  "699": {
+    "inputs": {
+      "radius": 8,
+      "sigma_factor": 1,
+      "image": [
+        "604",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "700": {
+    "inputs": {
+      "force_resize_width": 0,
+      "force_resize_height": 0,
+      "image": [
+        "134",
+        0
+      ],
+      "mask": [
+        "699",
+        0
+      ]
+    },
+    "class_type": "Cut By Mask"
+  },
+  "701": {
+    "inputs": {
+      "mask": [
+        "711",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "705": {
+    "inputs": {
+      "masks_a": [
+        "735",
+        0
+      ],
+      "masks_b": [
+        "731",
+        0
+      ]
+    },
+    "class_type": "Masks Add"
+  },
+  "711": {
+    "inputs": {
+      "masks_a": [
+        "713",
+        0
+      ],
+      "masks_b": [
+        "712",
+        0
+      ]
+    },
+    "class_type": "Masks Subtract"
+  },
+  "712": {
+    "inputs": {
+      "iterations": 1,
+      "masks": [
+        "705",
+        0
+      ]
+    },
+    "class_type": "Mask Erode Region"
+  },
+  "713": {
+    "inputs": {
+      "iterations": 17,
+      "masks": [
+        "739",
+        0
+      ]
+    },
+    "class_type": "Mask Dilate Region"
+  },
+  "731": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "732",
+        0
+      ],
+      "source": [
+        "652",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "732": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "735": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "736",
+        0
+      ],
+      "source": [
+        "643",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "736": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "739": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "740",
+        0
+      ],
+      "source": [
+        "598",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "740": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "754": {
+    "inputs": {
+      "resize_behavior": "resize",
+      "image_base": [
+        "134",
+        0
+      ],
+      "image_to_paste": [
+        "85",
+        5
+      ],
+      "mask": [
+        "625",
+        0
+      ]
+    },
+    "class_type": "Paste By Mask"
+  },
+  "903": {
+    "inputs": {
+      "filename_prefix": "V4",
+      "images": [
+        "754",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "999": {
+    "inputs": {
+      "Text": "superman, fictional character"
+    },
+    "class_type": "Text"
+  }
+}

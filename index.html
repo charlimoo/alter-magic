@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bricolage_Grotesque">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Alter Magic: Reality ✨</title>
+    <style>
+        body {
+            font-family: '"Bricolage_Grotesque', Tahoma, Geneva, Verdana, sans-serif !important;
+            margin: 30px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            background-color: rgb(255, 255, 255);
+
+        }
+        
+        a {
+            text-decoration: none; /* Remove underline */
+            color: rgb(202, 107, 29); /* Change the color */
+        }
+        #container {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 60px rgba(135, 0, 165, 0.1);
+            padding: 15px;
+            border: solid;
+            border-width: 1px;
+            border-color: rgb(233, 233, 233);
+            
+        }
+
+        #tip {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 5px;
+            background-color: rgb(241, 243, 249);
+            align-self: center;
+            font-family: '"Bricolage_Grotesque', Tahoma, Geneva, Verdana, sans-serif !important;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top:10px
+        }
+
+
+
+        .custom-file-upload {
+            display: inline;
+            background-color: #f1f4f5;
+            color: rgb(56, 56, 56);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            display: inline;
+            width: 49%;
+            text-align: left;
+            font-family: Arial !important;
+            font-size: 13.3px;
+            font-weight: 500;
+            transition: background-color 1s ease;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+
+          }
+          
+          .custom-file-upload:hover {
+            background-color: #f3ebf9;
+          }
+          .selected-image-path {
+            margin: 0px !important;
+            display: inline;
+            font-size: 12px;
+            font-weight: 200;
+            color: rgb(172, 165, 195);
+          }
+
+
+
+        .promptButton {
+            background-color: #f1f4f5;
+            color: rgb(56, 56, 56);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 5px;
+            display: inline;
+            width: 49%;
+            text-align: left;
+            transition: background-color 0.6s ease;
+        }
+        .promptButton:hover {
+            background-color: #e0f3ef;
+        }
+
+        button {
+            background-color: #f1f4f5;
+        }
+        button:hover {
+            background-color: #dfe8f3;
+        }
+
+        .glowing-heading {
+            font-size: 36px;
+            display: inline-block;
+            background: linear-gradient(135deg, #f06, rgb(0, 172, 77), rgb(0, 189, 202), #f60);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientAnimation 6s linear infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        
+
+
+        header {
+            background-color: #bec3c7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background: linear-gradient(135deg, hsla(346, 100%, 95%, 1) 0%, hsla(172, 100%, 92%, 1) 24%, hsla(249, 100%, 94%, 1) 50%, hsla(35, 100%, 93%, 1) 75%, hsla(97, 100%, 93%, 1) 100%);
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            background: linear-gradient(135deg, rgb(80, 212, 235) 0%, rgb(188, 81, 254) 50%,  rgb(54, 107, 223) 100%);
+            height: 50px;
+            transition: height 0.3s ease;
+
+        }
+        input[type="submit"]:hover {
+        height: 60px;
+        }
+
+
+
+        input[type="submit"]:hover {
+            background-color: #181d20;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            color: #35424a;
+            margin-top: 12px;
+        }
+
+        footer {
+            background-color: #35424a;
+            color: rgb(51, 51, 51);
+            text-align: center;
+            padding: 1px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            background: linear-gradient(135deg, hsla(67, 100%, 95%, 1) 0%, hsla(146, 100%, 95%, 1) 24%, hsla(249, 100%, 94%, 1) 50%, hsla(35, 100%, 93%, 1) 75%, hsla(174, 100%, 93%, 1) 100%);
+        }
+        .footertext {
+            font-size: 12px;
+            color: rgb(79, 40, 124);
+            text-align: center;
+            padding: 9px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            
+        }
+        
+    </style>
+    </head>
+    <body>
+    <div id="container">
+        <header>
+            <h1><a href="http://127.0.0.1:5000/" class="glowing-heading">✨ Alter Reality ✨</a></h1>
+            <p style="font-size:16px ;">Haha... Enchanted Creations...</p>
+        </header>
+
+        <form action="/run_option" method="post" onsubmit="showLoading()" enctype="multipart/form-data">
+            <label for="use_image_upload">📷 Image Upload:</label>
+            <input type="text" id="image_url" name="url" placeholder="Enter that magic image URL" style="width:96%; display:block;">
+
+            <div id="ximage_upload" style="display:none; width: 94%; padding: 15px; margin-bottom: -10px;padding-bottom:20px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+            <label for="image_upload" class="custom-file-upload">Choose Your Image</label>
+            <p id="selected_image_path" class="selected-image-path"></p>
+            </div>
+
+            <input type="file" id="image_upload" name="file" accept="image/*" style="width:96%; display:none; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;" enctype="multipart/form-data">
+
+            <div id="image_display" style="margin-top: 20px;"></div>
+
+            <button type="button" onclick="toggleImageUpload()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">⚡ Toggle Upload / URL</button>
+            <button type="button" onclick="loadImage()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👁️ Show Image</button>
+            <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
+            <label for="option">🌟 Select a Spell:</label>
+            <select id="option" name="option" onchange="togglePromptField()" enctype="multipart/form-data">
+                <option value="1">✨ Cosplay - Change Clothes</option>
+                <option value="2">🔞 NSFW - Full Nudity</option>
+                <option value="3">🎨 Creative - A Different Taste</option>
+            </select>
+            
+            <label for="user_prompt" id="userPromptLabel">🔮 How do you like it to be?</label>
+            <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: inline-block;">
+            <button type="button" id="selectCustomPromptButton" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">See Custom Prompts (load them into your prompt by clicking)</button>
+            <div id="customPromptSection" style="display: none;">
+                <button type="button" class="promptButton" onclick="setCustomPrompt('Disney princess, princess, long dress, detailed puffy outfit')">🤴 The Puffy Perfection</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('robotic arms, robot, tech, sci-fi, mechanics, machine, humanoid, android')">🤖 Beep Boop Beep Boop</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('bride, puffy dress, long skirt, wedding, bride dress')">👰 Come on, Its Your Wedding</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('military, injured, gun, covered in dirt, dirty, teared cloth, military uniform')">🪖 Aye, Sir</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('lingerie, sexy cloths, exposed bra, panties')">👙 Me and who?</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('gothic, horror, blood, witch, magic, colored hair')">🎃 A Gothic Tale of Horror</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('batman, fictional character, batman suit')">🦇 I Am the Night</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('covered in blood, bloody, blood splash, blood on cloth, dress soaked in blood')">🩸Its That Time of the Month again</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('holographic dress, holographic, soft colors, see through clothes,bright, pastle colors,very detailed dress, extra layers of fabric, shiny mellow holographic cloth')">🌈How the girl next door looks like</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('money, luxury, fancy cloths, rich, expensive brands, golden rings')">🤑 Andrew tate vibes</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('suit, tuxedo, tie, clean cloths, professional outfit')">🤵 Tuxedo night</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('poor, dirty cloths, needy, old dress,torn apart shirts, thin cloths, damaged')">💸 Me after AI took my job</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('punk, cyberpunk, steampunk, rock and metal. rock and roll, tattoo, piercing, metal accessories')">🤘 where is my motorcycle</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('girly, pink, clouds, dreamy, angel, soft, e-girl, candy clouds, candy')">🍭 im sweet as candy</button>
+
+            
+            
+            </div>
+            <hr style="border-width: 2px; border-color: #f3f3f3; border-style: solid; margin-top: 30px; margin-bottom: 30px;">
+            
+            <input type="submit" id="submit_button" value="Cast Spell ⭐" style="font-size: 16px; font-weight: bold; background: linear-gradient(135deg, hsla(189, 86%, 64%, 1) 0%, hsla(277, 100%, 66%, 1) 50%, hsla(218, 88%, 59%, 1) 100%);">
+            </form>
+
+        <div>
+
+            <div class="loading" id="loading">
+                <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
+                <img src="https://gifdb.com/images/high/waiting-for-reply-milk-ncyik8hgikx7r38y.gif" alt="Loading">
+                
+            </div>
+            {% for encoded_image in encoded_images %}
+                <img src="data:image/jpeg;base64,{{ encoded_image }}" alt="Enchanted Image">
+            {% endfor %}
+        </div>
+
+
+
+    <footer>
+        <p class="footertext">By Charlie</p>
+    </footer>
+        
+    </div>
+
+
+    <div style="height:20px ;"><p></p></div>
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>!</b> "Alter Reality" is the first in the <b>Alter Magic</b> img2img family, This one focuses on altering real people</p>
+    </div>
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> Add details of the atmosphere and general mood, even body shape for more accurate results</p>
+    </div>
+
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> Run the same prompt on top of the processed image one more time in case there were artifacts</p>
+    </div>
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> Run custom prompts if you blanked.. they're fun!</p>
+    </div>
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> Avoid pictures that are too zoomed-in or zoomed-out, or distorted. make sure the face is clear and visible</p>
+    </div>
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> Creative mode works better if theres only one face in the picture. It is also a bit slow</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+          
+          
+          
+          
+
+
+
+
+
+
+    
+    <script>
+
+
+
+        var startTime;
+        var elapsedTimer;
+        var backendElapsedTime;
+    
+        function togglePromptField() {
+            var selectedOption = document.getElementById("option").value;
+            var promptLabel = document.getElementById("userPromptLabel");
+            var promptField = document.getElementById("user_prompt");
+    
+            if (selectedOption === "2") { // NSFW Transformation
+                promptLabel.style.display = "none";
+                promptField.style.display = "none";
+            } else {
+                promptLabel.style.display = "block";
+                promptField.style.display = "block";
+            }
+        }
+    </script>
+    <script>
+        
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("submit_button").value = "Wait ~30s till ~90s...";
+            document.getElementById("submit_button").style = "background: linear-gradient(135deg, rgb(189, 169, 198) 0%,rgb(200, 200, 216) 50%, rgb(239, 232, 213) 100%); color:#000, cursor: wait;";
+
+            startTime = new Date().getTime();
+            // Start the elapsed time timer
+            elapsedTimer = setInterval(updateElapsedTime, 100);
+        }
+    
+        function hideLoading() {
+            document.getElementById("loading").style.display = "none";
+    
+            // Clear the elapsed time timer
+            clearInterval(elapsedTimer);
+            document.getElementById("elapsed_time").textContent = "🕐 " + backendElapsedTime.toFixed(2) + " seconds";
+        }
+    
+        function updateElapsedTime() {
+            var currentTime = new Date().getTime();
+            backendElapsedTime = (currentTime - startTime) / 1000;
+            document.getElementById("submit_button").value = "🕐 " + backendElapsedTime.toFixed(2) + " s  |  Wait ~30s till ~90s...";
+        }
+
+    </script>
+    <script>
+        document.getElementById("selectCustomPromptButton").addEventListener("click", function() {
+            var customPromptSection = document.getElementById("customPromptSection");
+            if (customPromptSection.style.display === "none") {
+                customPromptSection.style.display = "block";
+            } else {
+                customPromptSection.style.display = "none";
+            }
+        });
+        
+        function setCustomPrompt(promptText) {
+            document.getElementById("user_prompt").value = promptText;
+        }
+    </script>
+    <script>
+    
+        function toggleImageUpload() {
+            var imageUrlInput = document.getElementById("image_url");
+            var imageUploadInput = document.getElementById("ximage_upload");
+    
+            if (imageUrlInput.style.display === "none") {
+                imageUrlInput.style.display = "block";
+                imageUploadInput.style.display = "none";
+            } else {
+                imageUrlInput.style.display = "none";
+                imageUploadInput.style.display = "block";
+            }
+        }
+    
+    </script>
+    <script>
+
+        function togglePromptField() {
+            var selectedOption = document.getElementById("option").value;
+            var promptLabel = document.getElementById("userPromptLabel");
+            var promptField = document.getElementById("user_prompt");
+            var customPromptSection = document.getElementById("customPromptSection");
+        
+            if (selectedOption === "2") { // NSFW Transformation
+                promptLabel.style.display = "none";
+                promptField.style.display = "none";
+                customPromptSection.style.display = "none"; // Hide custom prompts section
+            } else {
+                promptLabel.style.display = "block";
+                promptField.style.display = "block";
+                customPromptSection.style.display = "block"; // Show custom prompts section
+            }
+        }
+        
+    </script>
+    <script>
+            function loadImage() {
+                var imageUrl = document.getElementById("image_url").value;
+                var imageInput = document.getElementById("image_upload");
+                var imageDisplay = document.getElementById("image_display");
+                
+                if (imageUrl) {
+                    imageDisplay.innerHTML = `<img src="${imageUrl}" style="width: 300px; height: 300px; object-fit: cover; overflow: hidden; background-size: cover; background-position: center; background-repeat: no-repeat;" alt="Uploaded Image" style="max-width: 100%;">`;
+                } else if (imageInput.files.length > 0) {
+                    var file = imageInput.files[0];
+                    var reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        imageDisplay.innerHTML = `<img src="${event.target.result}" style="width: 300px; height: 300px; object-fit: cover; overflow: hidden; background-size: cover; background-position: center; background-repeat: no-repeat;" alt="Uploaded Image" style="max-width: 100%;">`;
+                    };
+                    
+                    reader.readAsDataURL(file);
+                } else {
+                    alert("Please provide an image URL or upload an image file.");
+                }
+            }
+
+
+        </script>
+        <script>
+            const imageUpload = document.getElementById('image_upload');
+            const selectedImagePath = document.getElementById('selected_image_path');
+          
+            imageUpload.addEventListener('change', function() {
+              const files = this.files;
+              if (files.length > 0) {
+                selectedImagePath.textContent = files[0].name; // Display file name
+              } else {
+                selectedImagePath.textContent = ''; // Clear if no file selected
+              }
+            });
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

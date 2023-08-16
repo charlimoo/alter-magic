@@ -1,0 +1,316 @@
+{
+  "133": {
+    "inputs": {
+      "image": "محمدرضا-گلزار (1).jpg",
+      "choose file to upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "134": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "width": 512,
+      "height": 512,
+      "crop": "center",
+      "image": [
+        "133",
+        0
+      ]
+    },
+    "class_type": "ImageScale"
+  },
+  "857": {
+    "inputs": {
+      "ckpt_name": "dreamshaper_8.safetensors",
+      "vae_name": "Baked VAE",
+      "clip_skip": -1,
+      "lora_name": "None",
+      "lora_model_strength": 0.7745452880859379,
+      "lora_clip_strength": 1,
+      "positive": "",
+      "negative": "",
+      "empty_latent_width": 512,
+      "empty_latent_height": 512,
+      "batch_size": 1
+    },
+    "class_type": "Efficient Loader"
+  },
+  "878": {
+    "inputs": {
+      "sampler_state": "Sample",
+      "seed": 510232658466449,
+      "steps": 25,
+      "cfg": 7,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1,
+      "preview_image": "Enabled",
+      "model": [
+        "857",
+        0
+      ],
+      "positive": [
+        "1002",
+        0
+      ],
+      "negative": [
+        "886",
+        0
+      ],
+      "latent_image": [
+        "889",
+        0
+      ],
+      "optional_vae": [
+        "857",
+        4
+      ]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "880": {
+    "inputs": {
+      "conditioning": [
+        "987",
+        0
+      ],
+      "style_model": [
+        "882",
+        0
+      ],
+      "clip_vision_output": [
+        "883",
+        0
+      ]
+    },
+    "class_type": "StyleModelApply"
+  },
+  "882": {
+    "inputs": {
+      "style_model_name": "t2iadapter_style-fp16.safetensors"
+    },
+    "class_type": "StyleModelLoader"
+  },
+  "883": {
+    "inputs": {
+      "clip_vision": [
+        "884",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "CLIPVisionEncode"
+  },
+  "884": {
+    "inputs": {
+      "clip_name": "pytorch_model.bin"
+    },
+    "class_type": "CLIPVisionLoader"
+  },
+  "886": {
+    "inputs": {
+      "text": "anime. cartoon, animation, low detail,overly, \n(deformed, distorted, disfigured:1.3), poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, (mutated hands and fingers:1.4), disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
+      "clip": [
+        "857",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "889": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage"
+  },
+  "890": {
+    "inputs": {
+      "strength": 1,
+      "conditioning": [
+        "880",
+        0
+      ],
+      "control_net": [
+        "971",
+        0
+      ],
+      "image": [
+        "972",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "892": {
+    "inputs": {
+      "swap_model": "inswapper_128.onnx",
+      "reference_faces_index": "0",
+      "input_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "878",
+        5
+      ],
+      "reference_image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap"
+  },
+  "898": {
+    "inputs": {
+      "strength": 0.3040002441406251,
+      "conditioning": [
+        "890",
+        0
+      ],
+      "control_net": [
+        "970",
+        0
+      ],
+      "image": [
+        "973",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "956": {
+    "inputs": {
+      "text": [
+        "999",
+        0
+      ],
+      "clip": [
+        "857",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "970": {
+    "inputs": {
+      "control_net_name": "controlnet11Models_softedge.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "971": {
+    "inputs": {
+      "control_net_name": "control_v2p_sd15_mediapipe_face.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "972": {
+    "inputs": {
+      "max_faces": 10,
+      "min_confidence": 0.5,
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "MediaPipe-FaceMeshPreprocessor"
+  },
+  "973": {
+    "inputs": {
+      "version": "v1.1",
+      "safe": "enable",
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "HEDPreprocessor"
+  },
+  "986": {
+    "inputs": {
+      "insanitylevel": 8,
+      "artist": "all",
+      "imagetype": "all",
+      "imagemodechance": 5,
+      "subject": "humanoid",
+      "custom_subject": [
+        "999",
+        0
+      ],
+      "subject_subtype_objects": "all",
+      "subject_subtypes_humanoids": "humanoids",
+      "humanoids_gender": "all",
+      "subject_subtypes_concepts": "all",
+      "seed": 692194420805729
+    },
+    "class_type": "OneButtonPrompt"
+  },
+  "987": {
+    "inputs": {
+      "conditioning_1": [
+        "988",
+        0
+      ],
+      "conditioning_2": [
+        "956",
+        0
+      ]
+    },
+    "class_type": "ConditioningCombine"
+  },
+  "988": {
+    "inputs": {
+      "text": [
+        "986",
+        0
+      ],
+      "clip": [
+        "857",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "999": {
+    "inputs": {
+      "Text": "superman, fictional character"
+    },
+    "class_type": "Text"
+  },
+  "1000": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "892",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "1001": {
+    "inputs": {
+      "control_net_name": "controlnet11Models_openpose.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "1002": {
+    "inputs": {
+      "strength": 0.5039996337890622,
+      "conditioning": [
+        "898",
+        0
+      ],
+      "control_net": [
+        "1001",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  }
+}
