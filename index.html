@@ -21,12 +21,12 @@
         }
         #container {
             width: 90%;
-            max-width: 600px;
+            max-width: 700px;
             margin: auto;
             overflow: hidden;
             border-radius: 10px;
             background-color: #fff;
-            box-shadow: 0px 0px 60px rgba(135, 0, 165, 0.1);
+            box-shadow: 0px 0px 70px rgba(134, 29, 158, 0.1);
             padding: 15px;
             border: solid;
             border-width: 1px;
@@ -36,7 +36,8 @@
 
         #tip {
             width: 90%;
-            max-width: 600px;
+            line-height: 1.7;
+            max-width: 700px;
             margin: auto;
             overflow: hidden;
             border-radius: 5px;
@@ -223,12 +224,82 @@
             
         }
         
+        .preview {
+            margin: 4px;
+
+            border-radius: 6px;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 200;
+            font-family: Arial, Helvetica, sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .preview .markimg {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99;
+        }
+
+
+        .preview:hover .markimg {
+            display: inline-block;
+        }
+
+        .custompromtstitle {
+                display: block;
+        }
+        .previewspan {
+            margin-top: -10px;
+            display: flex; justify-content: center;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-around;
+        }
+
+        .queuecheck {
+            background-color: #f1f4f5;color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease; margin-top: 5px; font-size: 13.33px; font-family: Arial, Helvetica, sans-serif; float: right;
+        }
+
+        .queuecheck:hover {
+            background-color: #dfe8f3;
+        }
+
+
+
+
+
+
+
+
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function checkQueue() {
+            $.get("/check_queue", function(data) {
+                if ("queue" in data) {
+                    $("#queue_size").text("🔃 Queue size: " + data.queue + " | click to update");
+                } else {
+                    $("#queue_size").text("Failed to fetch queue information.");
+                }
+            }).fail(function() {
+                $("#queue_size").text("An error occurred while checking the queue.");
+            });
+        }
+    </script>
+
+
+
+
     </head>
     <body>
     <div id="container">
         <header>
-            <h1><a href="http://127.0.0.1:5000/" class="glowing-heading">✨ Alter Reality ✨</a></h1>
+            <h1><a href="http://127.0.0.1:5000/" class="glowing-heading">✨ Alter Magic: Reality ✨</a></h1>
             <p style="font-size:16px ;">Haha... Enchanted Creations...</p>
         </header>
 
@@ -246,7 +317,9 @@
             <div id="image_display" style="margin-top: 20px;"></div>
 
             <button type="button" onclick="toggleImageUpload()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">⚡ Toggle Upload / URL</button>
-            <button type="button" onclick="loadImage()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👁️ Show Image</button>
+            <button type="button" onclick="loadImage()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👁️ Preview Image</button>
+            <span onclick="checkQueue()" id="queue_size" class="queuecheck">🔃 Check Queue Size</span>
+
             <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
             <label for="option">🌟 Select a Spell:</label>
             <select id="option" name="option" onchange="togglePromptField()" enctype="multipart/form-data">
@@ -257,25 +330,26 @@
             
             <label for="user_prompt" id="userPromptLabel">🔮 How do you like it to be?</label>
             <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: inline-block;">
-            <button type="button" id="selectCustomPromptButton" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">See Custom Prompts (load them into your prompt by clicking)</button>
+            <button type="button" id="selectCustomPromptButton" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👉 See Custom Prompts (load them into your prompt by clicking)</button>
             <div id="customPromptSection" style="display: none;">
                 <button type="button" class="promptButton" onclick="setCustomPrompt('Disney princess, princess, long dress, detailed puffy outfit')">🤴 The Puffy Perfection</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('robotic arms, robot, tech, sci-fi, mechanics, machine, humanoid, android')">🤖 Beep Boop Beep Boop</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('bride, puffy dress, long skirt, wedding, bride dress')">👰 Come on, Its Your Wedding</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('military, injured, gun, covered in dirt, dirty, teared cloth, military uniform')">🪖 Aye, Sir</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('lingerie, sexy cloths, exposed bra, panties')">👙 Me and who?</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('lingerie, sexy cloths, exposed bra, panties')">🔥 isn't it a bit warm out here?</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('gothic, horror, blood, witch, magic, colored hair')">🎃 A Gothic Tale of Horror</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('batman, fictional character, batman suit')">🦇 I Am the Night</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('covered in blood, bloody, blood splash, blood on cloth, dress soaked in blood')">🩸Its That Time of the Month again</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('holographic dress, holographic, soft colors, see through clothes,bright, pastle colors,very detailed dress, extra layers of fabric, shiny mellow holographic cloth')">🌈How the girl next door looks like</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('money, luxury, fancy cloths, rich, expensive brands, golden rings')">🤑 Andrew tate vibes</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('money, luxury, fancy cloths, rich, expensive brands, golden rings')">🤑 I'll buy you</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('suit, tuxedo, tie, clean cloths, professional outfit')">🤵 Tuxedo night</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('poor, dirty cloths, needy, old dress,torn apart shirts, thin cloths, damaged')">💸 Me after AI took my job</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('poor, dirty cloths, needy, old dress,torn apart shirts, thin cloths, damaged')">🚬 Me after AI took my job</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('punk, cyberpunk, steampunk, rock and metal. rock and roll, tattoo, piercing, metal accessories')">🤘 where is my motorcycle</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('girly, pink, clouds, dreamy, angel, soft, e-girl, candy clouds, candy')">🍭 im sweet as candy</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('devil, evil, satanic, blood, smoke, demon, hell, beast, burned cloth, red')">😈 Call me the devil</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('astronaut, space, white space suit, spaceship')">🚀 See you on the other side</button>
+            
 
-            
-            
             </div>
             <hr style="border-width: 2px; border-color: #f3f3f3; border-style: solid; margin-top: 30px; margin-bottom: 30px;">
             
@@ -286,7 +360,7 @@
 
             <div class="loading" id="loading">
                 <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
-                <img src="https://gifdb.com/images/high/waiting-for-reply-milk-ncyik8hgikx7r38y.gif" alt="Loading">
+                <img src="{{ url_for('static', filename='loading.gif') }}" alt="Loading">
                 
             </div>
             {% for encoded_image in encoded_images %}
@@ -297,7 +371,7 @@
 
 
     <footer>
-        <p class="footertext">By Charlie</p>
+        <p class="footertext" style="padding: 5px !important;"><b>would you <u style="color: #ff0000">❤️donate❤️</u> a coffee to me? 👉👈</b> i worked hard to put this up</p>
     </footer>
         
     </div>
@@ -306,8 +380,12 @@
     <div style="height:20px ;"><p></p></div>
 
     <div id="tip">
-        <p style="text-align:left; font-size:12px;"><b>!</b> "Alter Reality" is the first in the <b>Alter Magic</b> img2img family, This one focuses on altering real people</p>
+        <p style="text-align:left; font-size:12px; line-height: 1.7"><b>!</b> "Alter Magic: Reality" is still an alpha version based on stable diffusion and dreamshaper models and my own developments.  i am planning to work on <b>altering architecture and decoration, altering cars, 3d scene to final renders, baeuty products</b> and so much more! if i get your support i think i can deliver tiny useful tools to the community</p>
     </div>
+
+    <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px; width: 700px">
+
+
 
     <div id="tip">
         <p style="text-align:left; font-size:12px;"><b>#</b> Add details of the atmosphere and general mood, even body shape for more accurate results</p>
@@ -319,17 +397,157 @@
     </div>
 
     <div id="tip">
-        <p style="text-align:left; font-size:12px;"><b>#</b> Run custom prompts if you blanked.. they're fun!</p>
-    </div>
-
-    <div id="tip">
         <p style="text-align:left; font-size:12px;"><b>#</b> Avoid pictures that are too zoomed-in or zoomed-out, or distorted. make sure the face is clear and visible</p>
     </div>
 
     <div id="tip">
-        <p style="text-align:left; font-size:12px;"><b>#</b> Creative mode works better if theres only one face in the picture. It is also a bit slow</p>
+        <p style="text-align:left; font-size:12px;"><b>#</b> Creative mode works better if theres only one face in the picture. It is also a bit slow but its  rock solid</p>
     </div>
 
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> In case you wanted to repeat the generation, just hit the back button of your browser and cast the spell again</p>
+    </div>
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> sometimes you need to add more words related to your topic into the prompt to get the job done, even in custom prompts</p>
+    </div>
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> generations are not getting stored in any server or getting shared in any public or private space</p>
+    </div>
+
+
+
+    <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px; width: 700px">
+
+    <div id="tip">
+        <p style="text-align:left; font-size:12px;"><b>#</b> Run custom prompts if you got blanked.. also margot robbie's a fantastic test subjet!</p>
+    </div>
+<center>
+    
+
+<div style="background-color:rgb(241, 243, 249); padding: 15px; width:690px; margin-top: 10px; border-radius:6px;padding-top:0px;">
+
+
+
+
+    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
+
+        <div class="preview">
+            <img id="1" src="{{ url_for('static', filename='1.jpg') }}" class="previewimg">
+            <img src="{{ url_for('static', filename='1b.png') }}" class="markimg">
+            <span class="previewspan">🤴 Puffy Perfection</span>
+        </div>
+
+    <div class="preview">
+        <img id="2" src="{{ url_for('static', filename='2.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='2b.png') }}" class="markimg">
+        <span class="previewspan">🤖 Beep Boop</span>
+    </div>
+
+    <div class="preview">
+        <img id="3" src="{{ url_for('static', filename='3.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='3b.png') }}" class="markimg">
+        <span class="previewspan">👰 Wedding</span>
+    </div>
+
+    <div class="preview">
+        <img id="4" src="{{ url_for('static', filename='4.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='4b.png') }}" class="markimg">
+        <span class="previewspan">🪖 Aye, Sir</span>
+    </div>
+    
+    </div>
+
+    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
+
+        <div class="preview">
+            <img id="5" src="{{ url_for('static', filename='5.jpg') }}" class="previewimg">
+            <img src="{{ url_for('static', filename='5b.png') }}" class="markimg">
+            <span class="previewspan">🔥 it's warm out here</span>
+        </div>
+
+    <div class="preview">
+        <img id="6" src="{{ url_for('static', filename='6.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='6b.png') }}" class="markimg">
+        <span class="previewspan">🎃 A Gothic Tale</span>
+    </div>
+
+    <div class="preview">
+        <img id="7" src="{{ url_for('static', filename='7.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='7b.png') }}" class="markimg">
+        <span class="previewspan">🦇 I Am the Night</span>
+    </div>
+
+    <div class="preview">
+        <img id="8" src="{{ url_for('static', filename='8.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='8b.png') }}" class="markimg">
+        <span class="previewspan">🩸That Time</span>
+    </div>
+    
+    </div>
+
+    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
+
+        <div class="preview">
+            <img id="9" src="{{ url_for('static', filename='9.jpg') }}" class="previewimg">
+            <img src="{{ url_for('static', filename='9b.png') }}" class="markimg">
+            <span class="previewspan">🌈 the girl next door</span>
+        </div>
+
+    <div class="preview">
+        <img id="10" src="{{ url_for('static', filename='10.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='10b.png') }}" class="markimg">
+        <span class="previewspan">🤑 I'll buy you</span>
+    </div>
+
+    <div class="preview">
+        <img id="11" src="{{ url_for('static', filename='11.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='11b.png') }}" class="markimg">
+        <span class="previewspan">🤵 Tuxedo night</span>
+    </div>
+
+    <div class="preview">
+        <img id="12" src="{{ url_for('static', filename='12.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='12b.png') }}" class="markimg">
+        <span class="previewspan">🚬 Me after AI</span>
+    </div>
+    
+    </div>
+
+    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
+
+        <div class="preview">
+            <img id="13" src="{{ url_for('static', filename='13.jpg') }}" class="previewimg">
+            <img src="{{ url_for('static', filename='13b.png') }}" class="markimg">
+            <span class="previewspan">🤘 motorcycle</span>
+        </div>
+    
+        <div class="preview">
+            <img id="14" src="{{ url_for('static', filename='14.jpg') }}" class="previewimg">
+            <img src="{{ url_for('static', filename='14b.png') }}" class="markimg">
+            <span class="previewspan">🍭 sweet as candy</span>
+        </div>
+
+    <div class="preview">
+        <img id="15" src="{{ url_for('static', filename='15.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='15b.png') }}" class="markimg">
+        <span class="previewspan">😈 The devil</span>
+    </div>
+
+    <div class="preview">
+        <img id="16" src="{{ url_for('static', filename='16.jpg') }}" class="previewimg">
+        <img src="{{ url_for('static', filename='16b.png') }}" class="markimg">
+        <span class="previewspan">🚀 the other side</span>
+    </div>
+    
+    </div>
+
+</div>
+
+
+
+</center>
 
 
 
@@ -380,6 +598,8 @@
             }
         }
     </script>
+
+
     <script>
         
         function showLoading() {
@@ -403,7 +623,7 @@
         function updateElapsedTime() {
             var currentTime = new Date().getTime();
             backendElapsedTime = (currentTime - startTime) / 1000;
-            document.getElementById("submit_button").value = "🕐 " + backendElapsedTime.toFixed(2) + " s  |  Wait ~30s till ~90s...";
+            document.getElementById("submit_button").value = "🕐 " + backendElapsedTime.toFixed(2) + " s  |  Wait ~30s till ~90s per queue... ";
         }
 
     </script>

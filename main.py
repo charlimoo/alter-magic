@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import requests
 import os
 import random
@@ -16,6 +16,28 @@ import base64
 #server URL
 server_address = "127.0.0.1:8188"
 client_id = str(uuid.uuid4())
+queue_url = "http://127.0.0.1:8188/queue"
+
+#workflows
+configurations = {
+    "1": {
+        "file_path": "workflows/change_outfit.json",
+        "target_node_id": "978",
+        "seed": "949"
+    },
+    "2": {
+        "file_path": "workflows/make_nsfw.json",
+        "target_node_id": "903",
+        "seed": "64"
+    },
+    "3": {
+        "file_path": "workflows/creative.json",
+        "target_node_id": "1000",
+        "seed": "878"
+    }
+}
+
+
 
 def queue_prompt(prompt):
     p = {"prompt": prompt, "client_id": client_id}
@@ -73,7 +95,7 @@ def run_engine(file_path, target_node_id, chosen_image, user_prompt, seed):
 
 
     # #Load Image
-    image_path = "C:/Users/Charlie/Desktop/comfyui/tele/git/uploads/" + chosen_image
+    image_path = os.path.join(os.getcwd(), os.path.join("uploads", chosen_image))
 
 
 
@@ -111,6 +133,7 @@ def run_engine(file_path, target_node_id, chosen_image, user_prompt, seed):
             for image_data in images[node_id]:
                 encoded_image = base64.b64encode(image_data).decode('utf-8')
                 encoded_images.append(encoded_image)
+                generate_image(image=image_data)
 
 
 
@@ -121,27 +144,42 @@ def run_engine(file_path, target_node_id, chosen_image, user_prompt, seed):
 
     return encoded_images, elapsed_time
 
-configurations = {
-    "1": {
-        "file_path": "workflows/change_outfit.json",
-        "target_node_id": "978",
-        "seed": "949"
-    },
-    "2": {
-        "file_path": "workflows/make_nsfw.json",
-        "target_node_id": "903",
-        "seed": "64"
-    },
-    "3": {
-        "file_path": "workflows/creative.json",
-        "target_node_id": "1000",
-        "seed": "878"
-    }
-}
+
+
+
+
+def generate_image(image):
+    
+    def generate_random_numbers(length=13):
+        #Cgetting random seed
+        snumbers = string.digits
+        return ''.join(random.choice(snumbers) for _ in range(length))
+    
+    ximage_path = os.path.join(os.getcwd(), os.path.join("generations", generate_random_numbers() + ".png"))
+    with open(ximage_path, 'wb') as fh:
+        fh.write(image)
+        
+
 
 def generate_random_filename(length=10):
     letters_and_digits = string.ascii_letters + string.digits
     return ''.join(random.choice(letters_and_digits) for _ in range(length))
+
+def get_queue_size_from_url(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            response_json = response.json()
+            queue_running = response_json.get('queue_running', [])
+            prompt_count = len(queue_running)
+            print("Number of prompts in queue:", prompt_count)
+            return prompt_count
+        else:
+            print("Failed to fetch queue information. Status code:", response.status_code)
+            return None
+    except Exception as e:
+        print("An error occurred:", e)
+        return None
 
 app = Flask(__name__, template_folder='.')
 
@@ -154,7 +192,9 @@ def index():
 
 @app.route('/run_option', methods=['GET', 'POST'])
 def run_option():
-
+    
+    queue = None  # Initialize queue size variable
+    
     if request.method == 'POST':
         
         xurl = request.form.get('url')
@@ -173,6 +213,12 @@ def run_option():
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], yfilename)
             xfile.save(filepath)    
         
+    if request.method == 'GET' or request.method == 'POST':
+        if 'check_queue' in request.args:  # Check if the "check_queue" parameter is present
+            url_to_check = queue_url  # Replace with the actual URL for the queue information
+            queue = get_queue_size_from_url(url_to_check)    
+        
+        
 
     user_prompt = request.form['user_prompt']
     selected_option = request.form['option']
@@ -182,16 +228,21 @@ def run_option():
         file_path = config["file_path"]
         target_node_id = config["target_node_id"]
         seed = config["seed"]
-        print(filepath)
-        print(yfilename)
+
         chosen_image = yfilename
         encoded_images, elapsed_time = run_engine(file_path, target_node_id, chosen_image, user_prompt, seed)
 
+
         
-        return render_template('index.html', encoded_images=encoded_images, elapsed_time=elapsed_time, filepath=filepath, yfilename=yfilename)
+        return render_template('index.html', encoded_images=encoded_images, elapsed_time=elapsed_time, queue=queue )
     else:
         return "Invalid option."
-
+    
+@app.route('/check_queue', methods=['GET'])
+def check_queue():
+    url_to_check = queue_url  # Replace with the actual URL for the queue information
+    queue = get_queue_size_from_url(url_to_check)
+    return jsonify({"queue": queue})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
