@@ -11,7 +11,8 @@ import time
 import base64
 
 
-#server URL
+#server URL without https:// and ending /
+# server_address = "hear-vic-pharmacy-ran.trycloudflare.com"
 server_address = "127.0.0.1:8188"
 client_id = str(uuid.uuid4())
 queue_url = "http://" + server_address + "/queue"
@@ -45,6 +46,13 @@ configurations = {
         "ksampler": "3",
         "promptnode": "6",
         "imagenode": "133"
+    },
+        "5": {
+        "file_path": "workflows/testimg.json",
+        "target_node_id": "13",
+        "ksampler": "10",
+        "promptnode": "12",
+        "imagenode": "14"
     }
 }
 
@@ -114,9 +122,15 @@ def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image,
     ximage_node = str(image_node)
     xksampler = str(ksampler)  
 
+    # Construct files dict for upload  
+    files = {'image': open(image_path, 'rb')}
+    url = "http://{}".format(server_address)
+    requests.post(url + "/upload/image", files=files)
+    
+
     #Changing Prompt
-    prompt[ximage_node]["inputs"]["image"] = image_path
-    prompt[xprompt_node]["inputs"]["Text"] = user_prompt
+    prompt[ximage_node]["inputs"]["image"] = chosen_image
+    prompt[xprompt_node]["inputs"]["text"] = user_prompt
     prompt[xksampler]["inputs"]["seed"] = generate_random_numbers()
 
 
@@ -190,7 +204,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', server_address=server_address)
 
 @app.route('/run_option', methods=['GET', 'POST'])
 def run_option():
@@ -238,7 +252,7 @@ def run_option():
 
 
         
-        return render_template('index.html', encoded_images=encoded_images, queue=queue )
+        return render_template('index.html', encoded_images=encoded_images, queue=queue, server_address=server_address)
     else:
         return "Invalid option."
     
@@ -248,6 +262,32 @@ def check_queue():
     queue = get_queue_size_from_url(url_to_check)
     return jsonify({"queue": queue})
 
+@app.route('/update_server')
+def update_server():
+    new_address = request.args.get('address').strip().rstrip('/')
+    new_address = new_address.replace('http://', '')
+    new_address = new_address.replace('https://', '')
+    global server_address
+    server_address = new_address
+    return "OK"
+
+@app.route('/check_server')
+def check_server():
+  try:
+    response = requests.get("http://" + server_address)
+    if response.status_code == 200:
+      return "Server is up!"
+    else:
+      return "Server returned status code %s" % response.status_code
+  except:
+    return "Server is down!"
+
+@app.route('/load_default')
+def load_default():
+  global server_address
+  server_address = "127.0.0.1:8188"
+  return "OK"
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

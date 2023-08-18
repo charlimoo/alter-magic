@@ -34,6 +34,21 @@
             
         }
 
+        #container2 {
+            width: 90%;
+            max-width: 700px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 70px rgba(20, 178, 221, 0.1);
+            padding: 15px;
+            border: solid;
+            border-width: 1px;
+            border-color: rgb(233, 233, 233);
+            
+        }
+
         #tip {
             width: 90%;
             line-height: 1.7;
@@ -260,19 +275,20 @@
             justify-content: space-around;
         }
 
-        .queuecheck {
-            background-color: #f1f4f5;color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease; margin-top: 5px; font-size: 13.33px; font-family: Arial, Helvetica, sans-serif; float: right;
+        .servercheck {
+            background-color: #f1f4f5;color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease; margin-top: 5px; font-size: 13.33px; font-family: Arial, Helvetica, sans-serif;
         }
 
-        .queuecheck:hover {
+        .servercheck:hover {
             background-color: #dfe8f3;
         }
 
 
 
 
-
-
+        .buttons {
+            background-color: #f1f4f5;
+        }
 
 
     </style>
@@ -292,12 +308,61 @@
         }
     </script>
 
+    <script>
+        function updateServer() {
+            var newServer = document.getElementById("server_input").value;
+            
+            // Make API call to update server_address
+            fetch('/update_server?address=' + newServer)
+            .then(response => {
+                console.log("Server updated to " + newServer); 
+                location.reload();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    </script>
+
+    <script>
+        function checkServer() {
+            fetch('/check_server')
+            .then(response => response.text())
+            .then(message => {
+                alert(message); 
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    </script>
+
+
+
+    <script>
+        function loadDefault() {
+
+            fetch('/load_default')
+            .then(response => {
+                console.log("Loaded default server");
+                
+                // Refresh page
+                location.reload();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        
+        }
+    </script>
 
 
 
 
     </head>
     <body>
+
+
     <div id="container">
         <header>
             <h1><a href="http://127.0.0.1:5000/" class="glowing-heading">✨ Alter Magic: Reality ✨</a></h1>
@@ -318,15 +383,14 @@
 
             <button type="button" onclick="toggleImageUpload()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">⚡ Toggle Upload / URL</button>
             <button type="button" onclick="loadImage()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👁️ Preview Image</button>
-            <span onclick="checkQueue()" id="queue_size" class="queuecheck">🔃 System check</span>
 
             <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
             <label for="option">🌟 Select a Spell:</label>
             <select id="option" name="option" onchange="togglePromptField()" enctype="multipart/form-data">
-                <option value="1">✨ Cosplay - Change Clothes</option>
-                <option value="2">🔞 NSFW - Full Nudity</option>
-                <option value="3">🎨 Creative - A Different Taste</option>
+
                 <option value="4">💀 Just text to image</option>
+                <option value="5">💀 Just image to image</option>
+
             </select>
             
             <label for="user_prompt" id="userPromptLabel">🔮 How do you like it to be?</label>
@@ -372,10 +436,23 @@
 
 
     <footer>
-        <p class="footertext" style="padding: 5px !important;"><b>would you <u style="color: #ff0000">❤️donate❤️</u> a coffee to me? 👉👈</b> i worked hard to put this up</p>
+        <p class="footertext" style="padding: 5px !important;"><b>would you <a style="color: #e0117c">❤️donate❤️</a> a coffee to me? 👉👈</b> i worked hard to put this up</p>
     </footer>
         
     </div>
+
+
+
+    <div id="container" style="margin-top: 20px;margin-bottom: 20px;">
+        <label>💻 Change Server:</label>
+        <input type="text" id="server_input" placeholder="Current server: {{ server_address }}" style="width:97%; display:block; font-size:14px">
+        <button onclick="updateServer()" class="servercheck">✅ Update Server</button>
+        <button onclick="checkServer()" class="servercheck">🔃 System check</button>
+        <button onclick="loadDefault()" class="servercheck">↩️ Load Default Server</button>
+        <button onclick="checkQueue()" style="float: right" id="queue_size" class="servercheck">⏩ Queue Check</button>
+    </div>
+
+
 
 
     <div style="height:20px ;"><p></p></div>
