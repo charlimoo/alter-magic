@@ -6,8 +6,6 @@ import string
 import websocket
 import uuid
 import json
-import urllib.request
-import urllib.parse
 from PIL import Image
 import time
 import base64
@@ -16,24 +14,37 @@ import base64
 #server URL
 server_address = "127.0.0.1:8188"
 client_id = str(uuid.uuid4())
-queue_url = "http://127.0.0.1:8188/queue"
+queue_url = "http://" + server_address + "/queue"
 
 #workflows
 configurations = {
     "1": {
         "file_path": "workflows/change_outfit.json",
         "target_node_id": "978",
-        "seed": "949"
+        "ksampler": "949",
+        "promptnode": "999",
+        "imagenode": "133"
     },
     "2": {
         "file_path": "workflows/make_nsfw.json",
         "target_node_id": "903",
-        "seed": "64"
+        "ksampler": "64",
+        "promptnode": "999",
+        "imagenode": "133"
     },
     "3": {
         "file_path": "workflows/creative.json",
         "target_node_id": "1000",
-        "seed": "878"
+        "ksampler": "878",
+        "promptnode": "999",
+        "imagenode": "133"
+    },
+        "4": {
+        "file_path": "workflows/test.json",
+        "target_node_id": "9",
+        "ksampler": "3",
+        "promptnode": "6",
+        "imagenode": "133"
     }
 }
 
@@ -42,18 +53,20 @@ configurations = {
 def queue_prompt(prompt):
     p = {"prompt": prompt, "client_id": client_id}
     data = json.dumps(p).encode('utf-8')
-    req =  urllib.request.Request("http://{}/prompt".format(server_address), data=data)
-    return json.loads(urllib.request.urlopen(req).read())
+    url = "http://{}/prompt".format(server_address)
+    response = requests.post(url, data=data, headers={'Content-Type': 'application/json'})
+    return response.json()
 
 def get_image(filename, subfolder, folder_type):
     data = {"filename": filename, "subfolder": subfolder, "type": folder_type}
-    url_values = urllib.parse.urlencode(data)
-    with urllib.request.urlopen("http://{}/view?{}".format(server_address, url_values)) as response:
-        return response.read()
+    url = "http://{}/view".format(server_address)
+    response = requests.get(url, params=data)
+    return response.content
 
 def get_history(prompt_id):
-    with urllib.request.urlopen("http://{}/history/{}".format(server_address, prompt_id)) as response:
-        return json.loads(response.read())
+    url = "http://{}/history/{}".format(server_address, prompt_id)
+    response = requests.get(url)
+    return response.json()
 
 def get_images(ws, prompt):
     prompt_id = queue_prompt(prompt)['prompt_id']
@@ -87,45 +100,41 @@ def generate_random_numbers(length=13):
     snumbers = string.digits
     return ''.join(random.choice(snumbers) for _ in range(length))
 
-def run_engine(file_path, target_node_id, chosen_image, user_prompt, seed):
-
-
-    #Timer Start
-    start_time = time.time()
-
-
+def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image, user_prompt, ksampler):
+    
     # #Load Image
     image_path = os.path.join(os.getcwd(), os.path.join("uploads", chosen_image))
-
-
-
 
     #Loading prompt
     with open(file_path, "r") as json_file:
         json_data = json_file.read()
     prompt = json.loads(json_data)
 
+    xprompt_node = str(prompt_node)
+    ximage_node = str(image_node)
+    xksampler = str(ksampler)  
 
-    
-    xseed = str(seed)  
-
-    #Changing the original Prompt
-    prompt["133"]["inputs"]["image"] = image_path
-    prompt["999"]["inputs"]["Text"] = user_prompt
-    prompt[xseed]["inputs"]["seed"] = generate_random_numbers()
+    #Changing Prompt
+    prompt[ximage_node]["inputs"]["image"] = image_path
+    prompt[xprompt_node]["inputs"]["Text"] = user_prompt
+    prompt[xksampler]["inputs"]["seed"] = generate_random_numbers()
 
 
-    #websocket and start process
-    ws = websocket.WebSocket()
-    ws.connect("ws://{}/ws?clientId={}".format(server_address, client_id))
+    try:
+        ws = websocket.WebSocket() 
+        ws.connect("wss://{}/ws?clientId={}".format(server_address, client_id))
+    except:
+        ws = websocket.WebSocket()
+        ws.connect("ws://{}/ws?clientId={}".format(server_address, client_id))
+
+
+    # #websocket and start process
+    # ws = websocket.WebSocket()
+    # ws.connect("ws://{}/ws?clientId={}".format(server_address, client_id))
 
     #getting processed image by node_id (outfit:978, nsfw:903, creative:1000)
     images = get_images(ws, prompt)
 
-
-
-        
-        
     #getting images
     encoded_images = []
     for node_id in images:
@@ -135,14 +144,7 @@ def run_engine(file_path, target_node_id, chosen_image, user_prompt, seed):
                 encoded_images.append(encoded_image)
                 generate_image(image=image_data)
 
-
-
-    #Timer end
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    
-
-    return encoded_images, elapsed_time
+    return encoded_images
 
 
 
@@ -227,14 +229,16 @@ def run_option():
         config = configurations[selected_option]
         file_path = config["file_path"]
         target_node_id = config["target_node_id"]
-        seed = config["seed"]
+        ksampler = config["ksampler"]
+        prompt_node = config["promptnode"]
+        image_node = config["imagenode"]
 
         chosen_image = yfilename
-        encoded_images, elapsed_time = run_engine(file_path, target_node_id, chosen_image, user_prompt, seed)
+        encoded_images = run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image, user_prompt, ksampler)
 
 
         
-        return render_template('index.html', encoded_images=encoded_images, elapsed_time=elapsed_time, queue=queue )
+        return render_template('index.html', encoded_images=encoded_images, queue=queue )
     else:
         return "Invalid option."
     
@@ -244,5 +248,6 @@ def check_queue():
     queue = get_queue_size_from_url(url_to_check)
     return jsonify({"queue": queue})
 
+
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

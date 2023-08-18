@@ -295,6 +295,7 @@
 
 
 
+
     </head>
     <body>
     <div id="container">
@@ -302,7 +303,6 @@
             <h1><a href="http://127.0.0.1:5000/" class="glowing-heading">✨ Alter Magic: Reality ✨</a></h1>
             <p style="font-size:16px ;">Haha... Enchanted Creations...</p>
         </header>
-
         <form action="/run_option" method="post" onsubmit="showLoading()" enctype="multipart/form-data">
             <label for="use_image_upload">📷 Image Upload:</label>
             <input type="text" id="image_url" name="url" placeholder="Enter that magic image URL" style="width:96%; display:block;">
@@ -318,7 +318,7 @@
 
             <button type="button" onclick="toggleImageUpload()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">⚡ Toggle Upload / URL</button>
             <button type="button" onclick="loadImage()" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👁️ Preview Image</button>
-            <span onclick="checkQueue()" id="queue_size" class="queuecheck">🔃 Check Queue Size</span>
+            <span onclick="checkQueue()" id="queue_size" class="queuecheck">🔃 System check</span>
 
             <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
             <label for="option">🌟 Select a Spell:</label>
@@ -326,6 +326,7 @@
                 <option value="1">✨ Cosplay - Change Clothes</option>
                 <option value="2">🔞 NSFW - Full Nudity</option>
                 <option value="3">🎨 Creative - A Different Taste</option>
+                <option value="4">💀 Just text to image</option>
             </select>
             
             <label for="user_prompt" id="userPromptLabel">🔮 How do you like it to be?</label>
