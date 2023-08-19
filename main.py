@@ -193,7 +193,7 @@ def get_queue_size_from_url(url):
         print("An error occurred:", e)
         return None
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__, template_folder='templates')
 
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
