@@ -387,7 +387,9 @@
             <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
             <label for="option">🌟 Select a Spell:</label>
             <select id="option" name="option" onchange="togglePromptField()" enctype="multipart/form-data">
+                <option value="1">✨ Cosplay - Change Clothes</option>
 
+                <option value="3">🎨 Creative - A Different Taste</option>
                 <option value="4">💀 Just text to image</option>
                 <option value="5">💀 Just image to image</option>
 
@@ -449,6 +451,7 @@
         <button onclick="updateServer()" class="servercheck">✅ Update Server</button>
         <button onclick="checkServer()" class="servercheck">🔃 System check</button>
         <button onclick="loadDefault()" class="servercheck">↩️ Load Default Server</button>
+        <button class="servercheck" onclick="window.location.href='https://github.com/charlimoo/alter-magic/blob/main/SD_engine_customized.ipynb';">🧠</button>
         <button onclick="checkQueue()" style="float: right" id="queue_size" class="servercheck">⏩ Queue Check</button>
     </div>
 

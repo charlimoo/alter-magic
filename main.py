@@ -131,6 +131,7 @@ def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image,
     #Changing Prompt
     prompt[ximage_node]["inputs"]["image"] = chosen_image
     prompt[xprompt_node]["inputs"]["text"] = user_prompt
+    prompt[xprompt_node]["inputs"]["Text"] = user_prompt
     prompt[xksampler]["inputs"]["seed"] = generate_random_numbers()
 
 
@@ -142,11 +143,6 @@ def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image,
         ws.connect("ws://{}/ws?clientId={}".format(server_address, client_id))
 
 
-    # #websocket and start process
-    # ws = websocket.WebSocket()
-    # ws.connect("ws://{}/ws?clientId={}".format(server_address, client_id))
-
-    #getting processed image by node_id (outfit:978, nsfw:903, creative:1000)
     images = get_images(ws, prompt)
 
     #getting images
@@ -290,4 +286,4 @@ def load_default():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(host='0.0.0.0', port=80)
