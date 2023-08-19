@@ -7,12 +7,8 @@ import websocket
 import uuid
 import json
 from PIL import Image
-import time
 import base64
 
-
-#server URL without https:// and ending /
-# server_address = "hear-vic-pharmacy-ran.trycloudflare.com"
 server_address = "127.0.0.1:8188"
 client_id = str(uuid.uuid4())
 queue_url = "http://" + server_address + "/queue"
@@ -55,8 +51,6 @@ configurations = {
         "imagenode": "14"
     }
 }
-
-
 
 def queue_prompt(prompt):
     p = {"prompt": prompt, "client_id": client_id}
@@ -156,10 +150,6 @@ def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image,
 
     return encoded_images
 
-
-
-
-
 def generate_image(image):
     
     def generate_random_numbers(length=13):
@@ -171,8 +161,6 @@ def generate_image(image):
     with open(ximage_path, 'wb') as fh:
         fh.write(image)
         
-
-
 def generate_random_filename(length=10):
     letters_and_digits = string.ascii_letters + string.digits
     return ''.join(random.choice(letters_and_digits) for _ in range(length))
@@ -283,7 +271,6 @@ def load_default():
   global server_address
   server_address = "127.0.0.1:8188"
   return "OK"
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)

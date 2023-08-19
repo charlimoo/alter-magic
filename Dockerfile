@@ -9,7 +9,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only the necessary source files
-COPY main.py .
+COPY . .
 
 # Expose the desired port
 EXPOSE 80
