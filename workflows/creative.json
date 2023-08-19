@@ -44,7 +44,8 @@
       "sampler_name": "dpmpp_2m",
       "scheduler": "karras",
       "denoise": 1,
-      "preview_image": "Enabled",
+      "preview_method": "auto",
+      "vae_decode": "true",
       "model": [
         "857",
         0
@@ -87,7 +88,7 @@
   },
   "882": {
     "inputs": {
-      "style_model_name": "t2iadapter_style-fp16.safetensors"
+      "style_model_name": "style.safetensors"
     },
     "class_type": "StyleModelLoader"
   },
@@ -196,13 +197,13 @@
   },
   "970": {
     "inputs": {
-      "control_net_name": "controlnet11Models_softedge.safetensors"
+      "control_net_name": "softedge.safetensors"
     },
     "class_type": "ControlNetLoader"
   },
   "971": {
     "inputs": {
-      "control_net_name": "control_v2p_sd15_mediapipe_face.safetensors"
+      "control_net_name": "face.safetensors"
     },
     "class_type": "ControlNetLoader"
   },
@@ -243,6 +244,7 @@
       "subject_subtypes_humanoids": "humanoids",
       "humanoids_gender": "all",
       "subject_subtypes_concepts": "all",
+      "emojis": false,
       "seed": 692194420805729
     },
     "class_type": "OneButtonPrompt"
@@ -291,7 +293,7 @@
   },
   "1001": {
     "inputs": {
-      "control_net_name": "controlnet11Models_openpose.safetensors"
+      "control_net_name": "openpose.safetensors"
     },
     "class_type": "ControlNetLoader"
   },

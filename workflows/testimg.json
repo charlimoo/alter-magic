@@ -7,7 +7,7 @@
         "cfg": 7,
         "sampler_name": "euler",
         "scheduler": "normal",
-        "denoise": 0.7999999999999997,
+        "denoise": 0.5,
         "preview_method": "taesd",
         "vae_decode": "true",
         "model": [
@@ -51,7 +51,7 @@
     },
     "12": {
       "inputs": {
-        "text": "girl wearing black",
+        "text": "",
         "clip": [
           "11",
           5
