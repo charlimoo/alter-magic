@@ -202,7 +202,7 @@
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 20px auto;
+            margin: 10px auto;
             border-radius: 10px;
         }
 
@@ -238,42 +238,11 @@
             margin-top: 20px;
             
         }
-        
-        .preview {
-            margin: 4px;
-
-            border-radius: 6px;
-            align-items: center;
-            font-size: 12px;
-            font-weight: 200;
-            font-family: Arial, Helvetica, sans-serif;
-            position: relative;
-            display: inline-block;
-        }
-
-        .preview .markimg {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 99;
-        }
-
-
-        .preview:hover .markimg {
-            display: inline-block;
-        }
 
         .custompromtstitle {
                 display: block;
         }
-        .previewspan {
-            margin-top: -10px;
-            display: flex; justify-content: center;
-            display: flex;
-            align-items: baseline;
-            justify-content: space-around;
-        }
+
 
         .servercheck {
             background-color: #f1f4f5;color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease; margin-top: 5px; font-size: 13.33px; font-family: Arial, Helvetica, sans-serif;
@@ -283,13 +252,96 @@
             background-color: #dfe8f3;
         }
 
-
-
-
         .buttons {
             background-color: #f1f4f5;
         }
 
+        /* Hide default radio */ 
+        .custom-radio input[type="radio"] {
+        display: none; 
+        }
+
+        /* Custom radio styles */
+        .custom-radio .radio-visual {
+        background-color: #f1f4f5;
+        color: rgb(56, 56, 56);
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+
+        display: inline;
+        font-size: 12px;
+        font-weight: 200;
+        font-family: Arial, Helvetica, sans-serif;
+        position: relative;
+        padding-bottom:5px;
+
+
+        transition: background-color 0.6s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        }
+
+        /* Selected state */
+        .custom-radio input[type="radio"]:checked + .radio-visual {
+        background: #aef2e3;
+        color: #0f8467;
+        font-weight:600;
+        }
+
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        
+        .flex-item {
+          flex: 1; 
+          margin: 3px;
+        }
+        
+        /* Responsive behavior */
+        @media (max-width: 768px) {
+          .flex-item {
+            flex: 1 0 33%;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .flex-item {
+            flex: 1 0 33%;
+          }
+        }
+
+        .custom-radio {
+            margin-bottom:0px;
+        }
+
+
+        .custom-radio .radio-visual:hover {
+            background-color: #e0f3ef;
+        }
+
+
+        .previewimg{
+            border-radius: 10px;
+            width:90%;
+        }
+
+        .custom-radio .radio-visual .markimg {
+            display: none;
+            position: absolute;
+            border-radius: 10px;
+            width:90%;
+            z-index: 99;
+        }
+
+
+        .custom-radio .radio-visual:hover .markimg {
+            display: inline-block;
+
+        }
 
     </style>
 
@@ -356,7 +408,22 @@
         }
     </script>
 
-
+    <script>
+        window.addEventListener('load', () => {
+        // Get dropdown and option divs
+    const dropdown = document.getElementById('option');
+    const optionDivs = document.querySelectorAll('.options');
+    
+    // Hide all on page load
+    optionDivs.forEach(div => div.style.display = 'none');
+    
+    // Show correct div on change
+    dropdown.addEventListener('change', () => {
+      optionDivs.forEach(div => div.style.display = 'none');
+      document.getElementById(dropdown.value).style.display = 'block';
+    });
+    });
+    </script>
 
 
     </head>
@@ -370,7 +437,7 @@
         </header>
         <form action="/run_option" method="post" onsubmit="showLoading()" enctype="multipart/form-data">
             <label for="use_image_upload">📷 Image Upload:</label>
-            <input type="text" id="image_url" name="url" placeholder="Enter that magic image URL" style="width:96%; display:block;">
+            <input type="text" id="image_url" name="url" placeholder="Make sure there is no '?...' after file extention. e.g. .../image.jpg?12wert4 " style="width:96%; display:block;">
 
             <div id="ximage_upload" style="display:none; width: 94%; padding: 15px; margin-bottom: -10px;padding-bottom:20px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
             <label for="image_upload" class="custom-file-upload">Choose Your Image</label>
@@ -386,41 +453,278 @@
 
             <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
             <label for="option">🌟 Select a Spell:</label>
-            <select id="option" name="option" onchange="togglePromptField()" enctype="multipart/form-data">
-                <option value="1">✨ Cosplay V1 - Change Clothes</option>
+            <select id="option" name="option" enctype="multipart/form-data">
+                <option value="0">Select...</option>
+                <option value="5">✨ Cosplay - Change Your Outfit</option>
                 <option value="3">🎨 Creative - A Different Taste</option>
-                <option value="4">👕 Cosplay V2 - outfit</option>
-                <option value="5">🥋 Cosplay V2 - body</option>
-                <option value="6">💇‍♂️ Hair Styler</option>
+                <option value="6">💇‍♂️ Hair Styler - See What Suits You Better!</option>
                 <option value="7">📷 Change Background</option>
-
             </select>
             
-            <label for="user_prompt" id="userPromptLabel">🔮 How do you like it to be?</label>
-            <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: inline-block;">
-            <button type="button" id="selectCustomPromptButton" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👉 See Custom Prompts (load them into your prompt by clicking)</button>
-            <div id="customPromptSection" style="display: none;">
-                <button type="button" class="promptButton" onclick="setCustomPrompt('curly, curly hair, wavy, curling, curled, crimped, permed, frizzy, frizzed, kinked, kinky, crinkly')">💇‍♂️ demo for hair styler</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('dirty, demolished, damaged, on fire, dirty background, broken wall, debris, broken woods, smoke')">📷 demo for background change</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('Disney princess, princess, long dress, detailed puffy outfit')">🤴 The Puffy Perfection</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('robotic arms, robot, tech, sci-fi, mechanics, machine, humanoid, android')">🤖 Beep Boop Beep Boop</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('bride, puffy dress, long skirt, wedding, bride dress')">👰 Come on, Its Your Wedding</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('military, injured, gun, covered in dirt, dirty, teared cloth, military uniform')">🪖 Aye, Sir</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('lingerie, sexy cloths, exposed bra, panties')">🔥 isn't it a bit warm out here?</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('gothic, horror, blood, witch, magic, colored hair')">🎃 A Gothic Tale of Horror</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('batman, fictional character, batman suit')">🦇 I Am the Night</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('covered in blood, bloody, blood splash, blood on cloth, dress soaked in blood')">🩸Its That Time of the Month again</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('holographic dress, holographic, soft colors, see through clothes,bright, pastle colors,very detailed dress, extra layers of fabric, shiny mellow holographic cloth')">🌈How the girl next door looks like</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('money, luxury, fancy cloths, rich, expensive brands, golden rings')">🤑 I'll buy you</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('suit, tuxedo, tie, clean cloths, professional outfit')">🤵 Tuxedo night</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('poor, dirty cloths, needy, old dress,torn apart shirts, thin cloths, damaged')">🚬 Me after AI took my job</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('punk, cyberpunk, steampunk, rock and metal. rock and roll, tattoo, piercing, metal accessories')">🤘 where is my motorcycle</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('girly, pink, clouds, dreamy, angel, soft, e-girl, candy clouds, candy')">🍭 im sweet as candy</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('devil, evil, satanic, blood, smoke, demon, hell, beast, burned cloth, red')">😈 Call me the devil</button>
-                <button type="button" class="promptButton" onclick="setCustomPrompt('astronaut, space, white space suit, spaceship')">🚀 See you on the other side</button>
-            
+
+
+
+            <div id="5" class="options" style="display:none">
+                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 How do you like it to be?</label>
+                <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: none;">
+                <div class="flex-container">
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('Disney princess, princess, long dress, detailed puffy outfit')"> 
+                      <div class="radio-visual">
+                        <img src="{{ url_for('static', filename='1.jpg') }}" class="previewimg">
+                        <img src="{{ url_for('static', filename='1b.png') }}" class="markimg">
+                        <span class="previewspan">🤴 Puffy Perfection</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('robotic arms, robot, tech, sci-fi, mechanics, machine, humanoid, android')"> 
+                      <div class="radio-visual">
+                        <img src="{{ url_for('static', filename='2.jpg') }}" class="previewimg">
+                        <img src="{{ url_for('static', filename='2b.png') }}" class="markimg">
+                        <span class="previewspan">🤖 Beep Boop</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('bride, puffy dress, long skirt, wedding, bride dress')"> 
+                      <div class="radio-visual">
+                        <img src="{{ url_for('static', filename='3.jpg') }}" class="previewimg">
+                        <img src="{{ url_for('static', filename='3b.png') }}" class="markimg">
+                        <span class="previewspan">👰 Wedding</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('military, injured, gun, covered in dirt, dirty, teared cloth, military uniform')"> 
+                      <div class="radio-visual">
+                        <img src="{{ url_for('static', filename='4.jpg') }}" class="previewimg">
+                        <img src="{{ url_for('static', filename='4b.png') }}" class="markimg">
+                        <span class="previewspan">🪖 Aye, Sir</span></div> </label>
+                  </div>
+                </div>
+
+                <div class="flex-container">
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('Iron Man, Marvel character, iron man suit')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='5.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='5b.png') }}" class="markimg">
+                            <span class="previewspan">🦸 Iron Man</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('gothic, horror, blood, witch, magic, colored hair')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='6.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='6b.png') }}" class="markimg">
+                            <span class="previewspan">🎃 A Gothic Tale</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('batman, fictional character, batman suit')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='7.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='7b.png') }}" class="markimg">
+                            <span class="previewspan">🦇 I Am the Night</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('covered in blood, bloody, blood splash, blood on cloth, dress soaked in blood')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='8.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='8b.png') }}" class="markimg">
+                            <span class="previewspan">🩸Dont Be Afraid</span></div> </label>
+                    </div>
+                  </div>
+
+                  <div class="flex-container">
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('holographic dress, holographic, soft colors, see through clothes,bright, pastle colors,very detailed dress, extra layers of fabric, shiny mellow holographic cloth')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='9.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='9b.png') }}" class="markimg">
+                            <span class="previewspan">🌈 Rise and Shine</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('money, luxury, fancy cloths, rich, expensive brands, golden rings')"> 
+                        <div class="radio-visual">
+                            <img id="10" src="{{ url_for('static', filename='10.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='10b.png') }}" class="markimg">
+                            <span class="previewspan">🤑 I'll buy you</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('suit, tuxedo, tie, clean cloths, professional outfit')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='11.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='11b.png') }}" class="markimg">
+                            <span class="previewspan">🤵 Tuxedo night</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('poor, dirty cloths, needy, old dress,torn apart shirts, thin cloths, damaged')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='12.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='12b.png') }}" class="markimg">
+                            <span class="previewspan">🚬 Me Before you</span></div> </label>
+                    </div>
+                  </div>
+
+                  <div class="flex-container">
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('punk, cyberpunk, steampunk, rock and metal. rock and roll, tattoo, piercing, metal accessories')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='13.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='13b.png') }}" class="markimg">
+                            <span class="previewspan">🤘 Punk</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('girly, pink, clouds, dreamy, angel, soft, e-girl, candy clouds, candy')"> 
+                        <div class="radio-visual">
+                        <img src="{{ url_for('static', filename='14.jpg') }}" class="previewimg">
+                        <img src="{{ url_for('static', filename='14b.png') }}" class="markimg">
+                        <span class="previewspan">🍭 sweet as candy</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('devil, evil, satanic, blood, smoke, demon, hell, beast, burned cloth, red')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='15.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='15b.png') }}" class="markimg">
+                            <span class="previewspan">😈 The devil</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('astronaut, space, white space suit, spaceship')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='16.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='16b.png') }}" class="markimg">
+                            <span class="previewspan">🚀 Space Suit</span></div> </label>
+                    </div>
+                  </div>
 
             </div>
+
+
+            <div id="3" class="options" style="display:none">
+                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 How do you like it to be?</label>
+                <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: none;">
+                <div class="flex-container">
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('punk, cyberpunk, steampunk, rock and metal. rock and roll, tattoo, piercing, metal accessories')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='13.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='13b.png') }}" class="markimg">
+                            <span class="previewspan">🤘 Punk</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('girly, pink, clouds, dreamy, angel, soft, e-girl, candy clouds, candy')"> 
+                        <div class="radio-visual">
+                        <img src="{{ url_for('static', filename='14.jpg') }}" class="previewimg">
+                        <img src="{{ url_for('static', filename='14b.png') }}" class="markimg">
+                        <span class="previewspan">🍭 sweet as candy</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('devil, evil, satanic, blood, smoke, demon, hell, beast, burned cloth, red')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='15.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='15b.png') }}" class="markimg">
+                            <span class="previewspan">😈 The devil</span></div> </label>
+                    </div>
+                    
+                    <div class="flex-item">
+                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('astronaut, space, white space suit, spaceship')"> 
+                        <div class="radio-visual">
+                            <img src="{{ url_for('static', filename='16.jpg') }}" class="previewimg">
+                            <img src="{{ url_for('static', filename='16b.png') }}" class="markimg">
+                            <span class="previewspan">🚀 Space Suit</span></div> </label>
+                    </div>
+                  </div>
+
+            </div>
+
+
+            <div id="6" class="options" style="display:none">
+                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 How do you like it to be?</label>
+                <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: none;">
+                <div class="flex-container">
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('rainbow color hair, curly, curly hair, wavy, curling, curled, crimped, permed, frizzy, frizzed, kinked, kinky, crinkly, rainbow color hair')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='17.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='17b.png') }}" class="markimg">
+                      <span class="previewspan">Rainbow Curly</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('blond hair, hair, bobbed hair, coiffed, cropped, cut, shortened, trimmed, blond hair')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='18.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='18b.png') }}" class="markimg">
+                      <span class="previewspan">Bobbed hair style</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('braided hair, braiding hair')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='19.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='19b.png') }}" class="markimg">
+                      <span class="previewspan">Braided hair</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('multicolor hair, rainbow hair, hair colors, hair dye, hair color ideas, straight hair, direct hair, pure hair, vertical hair, dead hair, downright hair, due hair, fair hair, flat hair')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='20.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='20b.png') }}" class="markimg">
+                      <span class="previewspan">Multicolor straight</span></div> </label>
+                  </div>
+                </div>
+
+            </div>
+
+            <div id="7" class="options" style="display:none">
+                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 How do you like it to be?</label>
+                <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: none;">
+                <div class="flex-container">
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('dirty, demolished, damaged, on fire, dirty background, broken wall, debris, broken woods, smoke')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='21.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='21b.png') }}" class="markimg">
+                      <span class="previewspan">💥 Ruined</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('jungle, trees, green, meadow, lawn, waterfall, nature')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='22.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='22b.png') }}" class="markimg">
+                      <span class="previewspan">🌲 Jungle Vibes</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('on fire, flame, caught fire, burnt, burning, smoke')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='23.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='23b.png') }}" class="markimg">
+                      <span class="previewspan">🔥 Caught Fire</span></div> </label>
+                  </div>
+                  
+                  <div class="flex-item">
+                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('old , old and dirty, aged, covered in dust')"> 
+                      <div class="radio-visual">
+                      <img id="14" src="{{ url_for('static', filename='24.jpg') }}" class="previewimg">
+                      <img src="{{ url_for('static', filename='24b.png') }}" class="markimg">
+                      <span class="previewspan">💀 Old and Dirty</span></div> </label>
+                  </div>
+                </div>
+
+            </div>
+
+            
             <hr style="border-width: 2px; border-color: #f3f3f3; border-style: solid; margin-top: 30px; margin-bottom: 30px;">
             
             <input type="submit" id="submit_button" value="Cast Spell ⭐" style="font-size: 16px; font-weight: bold; background: linear-gradient(135deg, hsla(189, 86%, 64%, 1) 0%, hsla(277, 100%, 66%, 1) 50%, hsla(218, 88%, 59%, 1) 100%);">
@@ -499,163 +803,6 @@
     <div id="tip">
         <p style="text-align:left; font-size:12px;"><b>#</b> generations are not getting stored in any server or getting shared in any public or private space</p>
     </div>
-
-
-
-    <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px; width: 700px">
-
-    <div id="tip">
-        <p style="text-align:left; font-size:12px;"><b>#</b> Run custom prompts if you got blanked.. also margot robbie's a fantastic test subjet!</p>
-    </div>
-<center>
-    
-
-<div style="background-color:rgb(241, 243, 249); padding: 15px; width:690px; margin-top: 10px; border-radius:6px;padding-top:0px;">
-
-
-
-
-    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
-
-        <div class="preview">
-            <img id="1" src="{{ url_for('static', filename='1.jpg') }}" class="previewimg">
-            <img src="{{ url_for('static', filename='1b.png') }}" class="markimg">
-            <span class="previewspan">🤴 Puffy Perfection</span>
-        </div>
-
-    <div class="preview">
-        <img id="2" src="{{ url_for('static', filename='2.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='2b.png') }}" class="markimg">
-        <span class="previewspan">🤖 Beep Boop</span>
-    </div>
-
-    <div class="preview">
-        <img id="3" src="{{ url_for('static', filename='3.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='3b.png') }}" class="markimg">
-        <span class="previewspan">👰 Wedding</span>
-    </div>
-
-    <div class="preview">
-        <img id="4" src="{{ url_for('static', filename='4.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='4b.png') }}" class="markimg">
-        <span class="previewspan">🪖 Aye, Sir</span>
-    </div>
-    
-    </div>
-
-    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
-
-        <div class="preview">
-            <img id="5" src="{{ url_for('static', filename='5.jpg') }}" class="previewimg">
-            <img src="{{ url_for('static', filename='5b.png') }}" class="markimg">
-            <span class="previewspan">🔥 it's warm out here</span>
-        </div>
-
-    <div class="preview">
-        <img id="6" src="{{ url_for('static', filename='6.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='6b.png') }}" class="markimg">
-        <span class="previewspan">🎃 A Gothic Tale</span>
-    </div>
-
-    <div class="preview">
-        <img id="7" src="{{ url_for('static', filename='7.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='7b.png') }}" class="markimg">
-        <span class="previewspan">🦇 I Am the Night</span>
-    </div>
-
-    <div class="preview">
-        <img id="8" src="{{ url_for('static', filename='8.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='8b.png') }}" class="markimg">
-        <span class="previewspan">🩸That Time</span>
-    </div>
-    
-    </div>
-
-    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
-
-        <div class="preview">
-            <img id="9" src="{{ url_for('static', filename='9.jpg') }}" class="previewimg">
-            <img src="{{ url_for('static', filename='9b.png') }}" class="markimg">
-            <span class="previewspan">🌈 the girl next door</span>
-        </div>
-
-    <div class="preview">
-        <img id="10" src="{{ url_for('static', filename='10.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='10b.png') }}" class="markimg">
-        <span class="previewspan">🤑 I'll buy you</span>
-    </div>
-
-    <div class="preview">
-        <img id="11" src="{{ url_for('static', filename='11.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='11b.png') }}" class="markimg">
-        <span class="previewspan">🤵 Tuxedo night</span>
-    </div>
-
-    <div class="preview">
-        <img id="12" src="{{ url_for('static', filename='12.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='12b.png') }}" class="markimg">
-        <span class="previewspan">🚬 Me after AI</span>
-    </div>
-    
-    </div>
-
-    <div style="display: flex; justify-content: center; width: 680px; justify-self: center; margin: 0px !important;">
-
-        <div class="preview">
-            <img id="13" src="{{ url_for('static', filename='13.jpg') }}" class="previewimg">
-            <img src="{{ url_for('static', filename='13b.png') }}" class="markimg">
-            <span class="previewspan">🤘 motorcycle</span>
-        </div>
-    
-        <div class="preview">
-            <img id="14" src="{{ url_for('static', filename='14.jpg') }}" class="previewimg">
-            <img src="{{ url_for('static', filename='14b.png') }}" class="markimg">
-            <span class="previewspan">🍭 sweet as candy</span>
-        </div>
-
-    <div class="preview">
-        <img id="15" src="{{ url_for('static', filename='15.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='15b.png') }}" class="markimg">
-        <span class="previewspan">😈 The devil</span>
-    </div>
-
-    <div class="preview">
-        <img id="16" src="{{ url_for('static', filename='16.jpg') }}" class="previewimg">
-        <img src="{{ url_for('static', filename='16b.png') }}" class="markimg">
-        <span class="previewspan">🚀 the other side</span>
-    </div>
-    
-    </div>
-
-</div>
-
-
-
-</center>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
-          
-          
-          
-          
-
-
-
 
 
 
@@ -802,26 +949,6 @@
 
 
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

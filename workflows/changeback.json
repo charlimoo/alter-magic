@@ -2,11 +2,11 @@
   "10": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 98844012954377,
+      "seed": 169886438006392,
       "steps": 20,
-      "cfg": 7,
-      "sampler_name": "euler",
-      "scheduler": "normal",
+      "cfg": 4.20001220703125,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
       "denoise": 1,
       "preview_method": "auto",
       "vae_decode": "true",
@@ -15,7 +15,7 @@
         0
       ],
       "positive": [
-        "41",
+        "90",
         0
       ],
       "negative": [
@@ -51,7 +51,7 @@
   },
   "12": {
     "inputs": {
-      "image": "photo_4239777726911850434_c (3).jpg",
+      "image": "36901875fd7c43458143714c435cf1a6.jpg",
       "choose file to upload": "image"
     },
     "class_type": "LoadImage"
@@ -137,7 +137,7 @@
   },
   "39": {
     "inputs": {
-      "text": "dirty, demolished, damaged, on fire, dirty background, broken wall, debris, broken woods, smoke",
+      "text": "old , old and dirty, aged, covered in dust",
       "clip": [
         "11",
         5
@@ -183,12 +183,12 @@
   "45": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 194021575842003,
+      "seed": 418771959735739,
       "steps": 20,
-      "cfg": 2,
-      "sampler_name": "euler",
-      "scheduler": "normal",
-      "denoise": 0.5579998779296872,
+      "cfg": 3.5999755859375,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.4259991455078122,
       "preview_method": "auto",
       "vae_decode": "true",
       "model": [
@@ -261,7 +261,7 @@
         5
       ],
       "mask": [
-        "78",
+        "80",
         0
       ]
     },
@@ -269,7 +269,7 @@
   },
   "71": {
     "inputs": {
-      "model_name": "bbox/face_yolov8m.pt"
+      "model_name": "bbox/face_yolov8s.pt"
     },
     "class_type": "UltralyticsDetectorProvider"
   },
@@ -347,5 +347,49 @@
       ]
     },
     "class_type": "SaveImage"
+  },
+  "80": {
+    "inputs": {
+      "radius": 10,
+      "sigma_factor": 1,
+      "image": [
+        "78",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "89": {
+    "inputs": {
+      "control_net_name": "color.pth"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "90": {
+    "inputs": {
+      "strength": 0.6699999999999999,
+      "conditioning": [
+        "41",
+        0
+      ],
+      "control_net": [
+        "89",
+        0
+      ],
+      "image": [
+        "91",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "91": {
+    "inputs": {
+      "image": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "ColorPreprocessor"
   }
 }
