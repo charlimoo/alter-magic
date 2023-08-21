@@ -1,0 +1,1190 @@
+{
+  "133": {
+    "inputs": {
+      "image": "مریم+امیرجلالی+در+آرایشگاه+های+کانادا+++عکس.jpg",
+      "choose file to upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "134": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "width": 512,
+      "height": 512,
+      "crop": "center",
+      "image": [
+        "133",
+        0
+      ]
+    },
+    "class_type": "ImageScale"
+  },
+  "597": {
+    "inputs": {
+      "model_name": "segm/deepfashion2_yolov8s-seg.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "598": {
+    "inputs": {
+      "segs": [
+        "601",
+        0
+      ]
+    },
+    "class_type": "SegsToCombinedMask"
+  },
+  "601": {
+    "inputs": {
+      "threshold": 0.2,
+      "dilation": 4,
+      "crop_factor": 1.2000000000000104,
+      "drop_size": 8,
+      "segm_detector": [
+        "597",
+        1
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SegmDetectorSEGS"
+  },
+  "605": {
+    "inputs": {
+      "mask": [
+        "739",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "624": {
+    "inputs": {
+      "mask": [
+        "735",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "625": {
+    "inputs": {
+      "image": [
+        "626",
+        0
+      ]
+    },
+    "class_type": "ImageInvert"
+  },
+  "626": {
+    "inputs": {
+      "radius": 7,
+      "sigma_factor": 1,
+      "image": [
+        "627",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "627": {
+    "inputs": {
+      "distance": 2,
+      "op": "dilate",
+      "image": [
+        "624",
+        0
+      ]
+    },
+    "class_type": "Mask Morphology"
+  },
+  "628": {
+    "inputs": {
+      "images": [
+        "625",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "631": {
+    "inputs": {
+      "model_name": "bbox/face_yolov8m.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "642": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader"
+  },
+  "643": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "642",
+        0
+      ],
+      "segs": [
+        "644",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorSegmented"
+  },
+  "644": {
+    "inputs": {
+      "threshold": 0.2900003051757812,
+      "dilation": 0,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "bbox_detector": [
+        "631",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS"
+  },
+  "645": {
+    "inputs": {
+      "mask": [
+        "731",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "646": {
+    "inputs": {
+      "image": [
+        "647",
+        0
+      ]
+    },
+    "class_type": "ImageInvert"
+  },
+  "647": {
+    "inputs": {
+      "radius": 3,
+      "sigma_factor": 1,
+      "image": [
+        "648",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "648": {
+    "inputs": {
+      "distance": 5,
+      "op": "dilate",
+      "image": [
+        "645",
+        0
+      ]
+    },
+    "class_type": "Mask Morphology"
+  },
+  "649": {
+    "inputs": {
+      "images": [
+        "646",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "650": {
+    "inputs": {
+      "model_name": "bbox/hand_yolov8s.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "651": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader"
+  },
+  "652": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "651",
+        0
+      ],
+      "segs": [
+        "653",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorSegmented"
+  },
+  "653": {
+    "inputs": {
+      "threshold": 0.40545471191406257,
+      "dilation": 10,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "bbox_detector": [
+        "650",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS"
+  },
+  "656": {
+    "inputs": {
+      "radius": 7,
+      "sigma_factor": 1,
+      "image": [
+        "1141",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "658": {
+    "inputs": {
+      "images": [
+        "656",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "659": {
+    "inputs": {
+      "model_name": "segm/person_yolov8m-seg.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "660": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader"
+  },
+  "661": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "660",
+        0
+      ],
+      "segs": [
+        "662",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorSegmented"
+  },
+  "662": {
+    "inputs": {
+      "threshold": 0.511636352539063,
+      "dilation": 10,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "bbox_detector": [
+        "659",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS"
+  },
+  "731": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "732",
+        0
+      ],
+      "source": [
+        "652",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "732": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "735": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "736",
+        0
+      ],
+      "source": [
+        "643",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "736": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "737": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "738",
+        0
+      ],
+      "source": [
+        "661",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "738": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "739": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "740",
+        0
+      ],
+      "source": [
+        "598",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "740": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "865": {
+    "inputs": {
+      "mask": [
+        "869",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "866": {
+    "inputs": {
+      "images": [
+        "865",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "867": {
+    "inputs": {
+      "masks_a": [
+        "735",
+        0
+      ],
+      "masks_b": [
+        "731",
+        0
+      ]
+    },
+    "class_type": "Masks Add"
+  },
+  "869": {
+    "inputs": {
+      "masks_a": [
+        "871",
+        0
+      ],
+      "masks_b": [
+        "870",
+        0
+      ]
+    },
+    "class_type": "Masks Subtract"
+  },
+  "870": {
+    "inputs": {
+      "iterations": 1,
+      "masks": [
+        "735",
+        0
+      ]
+    },
+    "class_type": "Mask Erode Region"
+  },
+  "871": {
+    "inputs": {
+      "iterations": 12,
+      "masks": [
+        "1150",
+        0
+      ]
+    },
+    "class_type": "Mask Dilate Region"
+  },
+  "1010": {
+    "inputs": {
+      "mask": [
+        "867",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "1011": {
+    "inputs": {
+      "images": [
+        "1010",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1031": {
+    "inputs": {
+      "sampler_state": "Sample",
+      "seed": 365635558430489,
+      "steps": 25,
+      "cfg": 4.399993896484375,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1,
+      "preview_method": "auto",
+      "vae_decode": "true",
+      "model": [
+        "1032",
+        0
+      ],
+      "positive": [
+        "1069",
+        0
+      ],
+      "negative": [
+        "1059",
+        0
+      ],
+      "latent_image": [
+        "1034",
+        0
+      ],
+      "optional_vae": [
+        "1032",
+        4
+      ]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "1032": {
+    "inputs": {
+      "ckpt_name": "dreamshaper_8.safetensors",
+      "vae_name": "Baked VAE",
+      "clip_skip": -1,
+      "lora_name": "None",
+      "lora_model_strength": 1,
+      "lora_clip_strength": 1,
+      "positive": "",
+      "negative": "",
+      "empty_latent_width": 512,
+      "empty_latent_height": 512,
+      "batch_size": 1
+    },
+    "class_type": "Efficient Loader"
+  },
+  "1034": {
+    "inputs": {
+      "grow_mask_by": 0,
+      "pixels": [
+        "134",
+        0
+      ],
+      "vae": [
+        "1032",
+        4
+      ],
+      "mask": [
+        "1084",
+        0
+      ]
+    },
+    "class_type": "VAEEncodeForInpaint"
+  },
+  "1046": {
+    "inputs": {
+      "images": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1058": {
+    "inputs": {
+      "text": "gothic, horror, blood, witch, magic, colored hair",
+      "clip": [
+        "1032",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "1059": {
+    "inputs": {
+      "text": "(deformed, distorted, disfigured:1.3), drawing, cartoon, painting, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, (mutated hands and fingers:1.4), disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation, (worst quality, low quality:1.4)",
+      "clip": [
+        "1032",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "1060": {
+    "inputs": {
+      "resize_behavior": "source_size",
+      "image_base": [
+        "1085",
+        5
+      ],
+      "image_to_paste": [
+        "134",
+        0
+      ],
+      "mask": [
+        "1083",
+        0
+      ]
+    },
+    "class_type": "Paste By Mask"
+  },
+  "1063": {
+    "inputs": {
+      "mask": [
+        "1066",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "1066": {
+    "inputs": {
+      "mask": [
+        "869",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "1069": {
+    "inputs": {
+      "strength": 0.9,
+      "conditioning": [
+        "1058",
+        0
+      ],
+      "control_net": [
+        "1070",
+        0
+      ],
+      "image": [
+        "1071",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "1070": {
+    "inputs": {
+      "control_net_name": "openpose.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "1071": {
+    "inputs": {
+      "detect_hand": "enable",
+      "detect_body": "enable",
+      "detect_face": "enable",
+      "version": "v1.1",
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "OpenposePreprocessor"
+  },
+  "1072": {
+    "inputs": {
+      "strength": 0.2580004882812504,
+      "conditioning": [
+        "1058",
+        0
+      ],
+      "control_net": [
+        "1073",
+        0
+      ],
+      "image": [
+        "1076",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "1073": {
+    "inputs": {
+      "control_net_name": "softedge.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "1076": {
+    "inputs": {
+      "version": "v1.1",
+      "safe": "enable",
+      "image": [
+        "1031",
+        5
+      ]
+    },
+    "class_type": "HEDPreprocessor"
+  },
+  "1079": {
+    "inputs": {
+      "max_faces": 10,
+      "min_confidence": 0.5,
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "MediaPipe-FaceMeshPreprocessor"
+  },
+  "1080": {
+    "inputs": {
+      "strength": 1,
+      "conditioning": [
+        "1072",
+        0
+      ],
+      "control_net": [
+        "1081",
+        0
+      ],
+      "image": [
+        "1079",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "1081": {
+    "inputs": {
+      "control_net_name": "face.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "1083": {
+    "inputs": {
+      "radius": 13,
+      "sigma_factor": 0.4099996948242187,
+      "image": [
+        "1104",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "1084": {
+    "inputs": {
+      "masks_a": [
+        "871",
+        0
+      ],
+      "masks_b": [
+        "867",
+        0
+      ]
+    },
+    "class_type": "Masks Subtract"
+  },
+  "1085": {
+    "inputs": {
+      "sampler_state": "Sample",
+      "seed": 792302107292324,
+      "steps": 25,
+      "cfg": 3.199981689453125,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.6300006103515621,
+      "preview_method": "auto",
+      "vae_decode": "true",
+      "model": [
+        "1031",
+        0
+      ],
+      "positive": [
+        "1080",
+        0
+      ],
+      "negative": [
+        "1031",
+        2
+      ],
+      "latent_image": [
+        "1087",
+        0
+      ],
+      "optional_vae": [
+        "1031",
+        4
+      ]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "1086": {
+    "inputs": {
+      "pixels": [
+        "1107",
+        0
+      ],
+      "vae": [
+        "1031",
+        4
+      ]
+    },
+    "class_type": "VAEEncode"
+  },
+  "1087": {
+    "inputs": {
+      "samples": [
+        "1086",
+        0
+      ],
+      "mask": [
+        "1098",
+        0
+      ]
+    },
+    "class_type": "SetLatentNoiseMask"
+  },
+  "1098": {
+    "inputs": {
+      "masks_a": [
+        "1101",
+        0
+      ],
+      "masks_b": [
+        "1099",
+        0
+      ]
+    },
+    "class_type": "Masks Subtract"
+  },
+  "1099": {
+    "inputs": {
+      "iterations": 4,
+      "masks": [
+        "867",
+        0
+      ]
+    },
+    "class_type": "Mask Erode Region"
+  },
+  "1101": {
+    "inputs": {
+      "iterations": 7,
+      "masks": [
+        "737",
+        0
+      ]
+    },
+    "class_type": "Mask Dilate Region"
+  },
+  "1102": {
+    "inputs": {
+      "images": [
+        "1085",
+        5
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1104": {
+    "inputs": {
+      "distance": 3,
+      "op": "erode",
+      "image": [
+        "1063",
+        0
+      ]
+    },
+    "class_type": "Mask Morphology"
+  },
+  "1106": {
+    "inputs": {
+      "filename_prefix": "Cosplay",
+      "images": [
+        "1060",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "1107": {
+    "inputs": {
+      "resize_behavior": "source_size",
+      "image_base": [
+        "1031",
+        5
+      ],
+      "image_to_paste": [
+        "134",
+        0
+      ],
+      "mask": [
+        "1083",
+        0
+      ]
+    },
+    "class_type": "Paste By Mask"
+  },
+  "1108": {
+    "inputs": {
+      "images": [
+        "1107",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1111": {
+    "inputs": {
+      "mask": [
+        "1098",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "1112": {
+    "inputs": {
+      "images": [
+        "1111",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1113": {
+    "inputs": {
+      "images": [
+        "1063",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1114": {
+    "inputs": {
+      "images": [
+        "1083",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1115": {
+    "inputs": {
+      "images": [
+        "1060",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1116": {
+    "inputs": {
+      "resize_behavior": "resize",
+      "image_base": [
+        "134",
+        0
+      ],
+      "image_to_paste": [
+        "134",
+        0
+      ],
+      "mask": [
+        "656",
+        0
+      ]
+    },
+    "class_type": "Paste By Mask"
+  },
+  "1117": {
+    "inputs": {
+      "images": [
+        "1116",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1123": {
+    "inputs": {
+      "x": 15,
+      "y": 15,
+      "operation": "multiply",
+      "destination": [
+        "1125",
+        0
+      ],
+      "source": [
+        "1124",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "1124": {
+    "inputs": {
+      "value": 0,
+      "width": 480,
+      "height": 480
+    },
+    "class_type": "SolidMask"
+  },
+  "1125": {
+    "inputs": {
+      "value": 1,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "1128": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "or",
+      "destination": [
+        "605",
+        0
+      ],
+      "source": [
+        "1123",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "1129": {
+    "inputs": {
+      "mask": [
+        "1123",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "1130": {
+    "inputs": {
+      "images": [
+        "1129",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1133": {
+    "inputs": {
+      "mask": [
+        "1128",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "1141": {
+    "inputs": {
+      "mask": [
+        "1145",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "1142": {
+    "inputs": {
+      "x": 15,
+      "y": 15,
+      "operation": "multiply",
+      "destination": [
+        "1144",
+        0
+      ],
+      "source": [
+        "1143",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "1143": {
+    "inputs": {
+      "value": 0,
+      "width": 480,
+      "height": 480
+    },
+    "class_type": "SolidMask"
+  },
+  "1144": {
+    "inputs": {
+      "value": 1,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
+  "1145": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "or",
+      "destination": [
+        "1149",
+        0
+      ],
+      "source": [
+        "1142",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "1146": {
+    "inputs": {
+      "mask": [
+        "1142",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "1147": {
+    "inputs": {
+      "images": [
+        "1146",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1149": {
+    "inputs": {
+      "mask": [
+        "737",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "1150": {
+    "inputs": {
+      "mask": [
+        "1145",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "1151": {
+    "inputs": {
+      "mask": [
+        "1150",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "1152": {
+    "inputs": {
+      "images": [
+        "1151",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  }
+}

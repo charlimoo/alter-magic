@@ -1,0 +1,498 @@
+{
+  "1": {
+    "inputs": {
+      "image": "download (10) (2).jpg",
+      "choose file to upload": "image"
+    },
+    "class_type": "LoadImage"
+  },
+  "3": {
+    "inputs": {
+      "model_name": "bbox/face_yolov8m.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "10": {
+    "inputs": {
+      "mask": [
+        "74",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "13": {
+    "inputs": {
+      "threshold": 0.5,
+      "dilation": 10,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "bbox_detector": [
+        "3",
+        0
+      ],
+      "image": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS"
+  },
+  "14": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader"
+  },
+  "15": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "14",
+        0
+      ],
+      "segs": [
+        "13",
+        0
+      ],
+      "image": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorCombined"
+  },
+  "16": {
+    "inputs": {
+      "mask": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "17": {
+    "inputs": {
+      "images": [
+        "16",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "20": {
+    "inputs": {
+      "mask": [
+        "30",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "21": {
+    "inputs": {
+      "images": [
+        "20",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "22": {
+    "inputs": {
+      "combined": true,
+      "crop_factor": 2,
+      "bbox_fill": false,
+      "drop_size": 10,
+      "mask": [
+        "30",
+        0
+      ]
+    },
+    "class_type": "MaskToSEGS"
+  },
+  "24": {
+    "inputs": {
+      "guide_size": 256,
+      "guide_size_for": true,
+      "max_size": 768,
+      "seed": 855368230928095,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.66,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "wildcard": "",
+      "image": [
+        "103",
+        0
+      ],
+      "segs": [
+        "22",
+        0
+      ],
+      "basic_pipe": [
+        "75",
+        0
+      ]
+    },
+    "class_type": "DetailerForEachDebugPipe"
+  },
+  "30": {
+    "inputs": {
+      "threshold": 100,
+      "mask": [
+        "101",
+        0
+      ]
+    },
+    "class_type": "ToBinaryMask"
+  },
+  "43": {
+    "inputs": {
+      "seed": 490030267085764,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.3,
+      "basic_pipe": [
+        "75",
+        0
+      ],
+      "latent_image": [
+        "51",
+        0
+      ]
+    },
+    "class_type": "ImpactKSamplerBasicPipe"
+  },
+  "44": {
+    "inputs": {
+      "pixels": [
+        "24",
+        0
+      ],
+      "vae": [
+        "45",
+        2
+      ]
+    },
+    "class_type": "VAEEncode"
+  },
+  "45": {
+    "inputs": {
+      "basic_pipe": [
+        "75",
+        0
+      ]
+    },
+    "class_type": "FromBasicPipe"
+  },
+  "46": {
+    "inputs": {
+      "samples": [
+        "43",
+        1
+      ],
+      "vae": [
+        "43",
+        2
+      ]
+    },
+    "class_type": "VAEDecode"
+  },
+  "48": {
+    "inputs": {
+      "images": [
+        "24",
+        3
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "49": {
+    "inputs": {
+      "mask": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "51": {
+    "inputs": {
+      "samples": [
+        "44",
+        0
+      ],
+      "mask": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "SetLatentNoiseMask"
+  },
+  "54": {
+    "inputs": {
+      "mask": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "67": {
+    "inputs": {
+      "guide_size": 256,
+      "guide_size_for": true,
+      "max_size": 768,
+      "seed": 1023492756406656,
+      "steps": 20,
+      "cfg": 8,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.6,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "wildcard": "",
+      "image": [
+        "24",
+        0
+      ],
+      "segs": [
+        "22",
+        0
+      ],
+      "basic_pipe": [
+        "75",
+        0
+      ]
+    },
+    "class_type": "DetailerForEachDebugPipe"
+  },
+  "68": {
+    "inputs": {
+      "images": [
+        "67",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "74": {
+    "inputs": {
+      "text": "hair",
+      "image": [
+        "103",
+        0
+      ],
+      "clipseg_model": [
+        "79",
+        0
+      ]
+    },
+    "class_type": "CLIPSeg Masking"
+  },
+  "75": {
+    "inputs": {
+      "model": [
+        "78",
+        0
+      ],
+      "clip": [
+        "78",
+        1
+      ],
+      "vae": [
+        "78",
+        2
+      ],
+      "positive": [
+        "106",
+        0
+      ],
+      "negative": [
+        "77",
+        0
+      ]
+    },
+    "class_type": "ToBasicPipe"
+  },
+  "76": {
+    "inputs": {
+      "text": "curly, curly hair, wavy, curling, curled, crimped, permed, frizzy, frizzed, kinked, kinky, crinkly",
+      "clip": [
+        "78",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "77": {
+    "inputs": {
+      "text": "bad hair, ugly, deformed hair",
+      "clip": [
+        "78",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "78": {
+    "inputs": {
+      "ckpt_name": "dreamshaper_8.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple"
+  },
+  "79": {
+    "inputs": {
+      "model": "CIDAS/clipseg-rd64-refined"
+    },
+    "class_type": "CLIPSeg Model Loader"
+  },
+  "91": {
+    "inputs": {
+      "iterations": 15,
+      "masks": [
+        "92",
+        0
+      ]
+    },
+    "class_type": "Mask Dilate Region"
+  },
+  "92": {
+    "inputs": {
+      "threshold": 195,
+      "masks": [
+        "74",
+        0
+      ]
+    },
+    "class_type": "Mask Dominant Region"
+  },
+  "95": {
+    "inputs": {
+      "mask": [
+        "91",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "96": {
+    "inputs": {
+      "mask": [
+        "92",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "98": {
+    "inputs": {
+      "images": [
+        "95",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "100": {
+    "inputs": {
+      "images": [
+        "96",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "101": {
+    "inputs": {
+      "masks_a": [
+        "91",
+        0
+      ],
+      "masks_b": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "Masks Subtract"
+  },
+  "103": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "width": 512,
+      "height": 512,
+      "crop": "center",
+      "image": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "ImageScale"
+  },
+  "104": {
+    "inputs": {
+      "filename_prefix": "HairChange",
+      "images": [
+        "46",
+        0
+      ]
+    },
+    "class_type": "SaveImage"
+  },
+  "105": {
+    "inputs": {
+      "text": "rainbow color hair",
+      "clip": [
+        "78",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "106": {
+    "inputs": {
+      "conditioning_1": [
+        "76",
+        0
+      ],
+      "conditioning_2": [
+        "105",
+        0
+      ]
+    },
+    "class_type": "ConditioningCombine"
+  },
+  "107": {
+    "inputs": {
+      "conditioning_1": [
+        "108",
+        0
+      ],
+      "conditioning_2": [
+        "106",
+        0
+      ]
+    },
+    "class_type": "ConditioningCombine"
+  },
+  "108": {
+    "inputs": {
+      "text": "realistic, photorealism, natural"
+    },
+    "class_type": "CLIPTextEncode"
+  }
+}
