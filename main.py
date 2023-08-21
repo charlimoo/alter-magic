@@ -16,14 +16,14 @@ queue_url = "http://" + server_address + "/queue"
 #workflows
 configurations = {
     "1": {
-        "file_path": "workflows/change_outfit.json",
+        "file_path": "workflows/CosplayOLD.json",
         "target_node_id": "978",
         "ksampler": "949",
         "promptnode": "999",
         "imagenode": "133"
     },
     "2": {
-        "file_path": "workflows/make_nsfw.json",
+        "file_path": "workflows/adult.json",
         "target_node_id": "903",
         "ksampler": "64",
         "promptnode": "999",
@@ -36,19 +36,33 @@ configurations = {
         "promptnode": "999",
         "imagenode": "133"
     },
-        "4": {
-        "file_path": "workflows/test.json",
-        "target_node_id": "9",
-        "ksampler": "3",
-        "promptnode": "6",
+    "4": {
+        "file_path": "workflows/CosplayCloth.json",
+        "target_node_id": "1106",
+        "ksampler": "1031",
+        "promptnode": "1058",
         "imagenode": "133"
     },
-        "5": {
-        "file_path": "workflows/testimg.json",
-        "target_node_id": "13",
+    "5": {
+        "file_path": "workflows/CosplayWhole.json",
+        "target_node_id": "1106",
+        "ksampler": "1031",
+        "promptnode": "1058",
+        "imagenode": "133"
+    },
+    "6": {
+        "file_path": "workflows/HairStyle.json",
+        "target_node_id": "104",
+        "ksampler": "24",
+        "promptnode": "76",
+        "imagenode": "1"
+    },
+    "7": {
+        "file_path": "workflows/changeback.json",
+        "target_node_id": "79",
         "ksampler": "10",
-        "promptnode": "12",
-        "imagenode": "14"
+        "promptnode": "39",
+        "imagenode": "12"
     }
 }
 
