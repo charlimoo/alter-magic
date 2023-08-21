@@ -387,11 +387,12 @@
             <hr style="border-width:2px; border-color:#f3f3f3; border-style:solid; margin-top: 30px;margin-bottom: 30px;">
             <label for="option">🌟 Select a Spell:</label>
             <select id="option" name="option" onchange="togglePromptField()" enctype="multipart/form-data">
-                <option value="1">✨ Cosplay - Change Clothes</option>
-
+                <option value="1">✨ Cosplay V1 - Change Clothes</option>
                 <option value="3">🎨 Creative - A Different Taste</option>
-                <option value="4">💀 Just text to image</option>
-                <option value="5">💀 Just image to image</option>
+                <option value="4">👕 Cosplay V2 - outfit</option>
+                <option value="5">🥋 Cosplay V2 - body</option>
+                <option value="6">💇‍♂️ Hair Styler</option>
+                <option value="7">📷 Change Background</option>
 
             </select>
             
@@ -399,6 +400,8 @@
             <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: inline-block;">
             <button type="button" id="selectCustomPromptButton" style="color: rgb(56, 56, 56); border: none; padding: 10px; cursor: pointer; border-radius: 5px; ; transition: background-color 0.3s ease; margin-top: 5px">👉 See Custom Prompts (load them into your prompt by clicking)</button>
             <div id="customPromptSection" style="display: none;">
+                <button type="button" class="promptButton" onclick="setCustomPrompt('curly, curly hair, wavy, curling, curled, crimped, permed, frizzy, frizzed, kinked, kinky, crinkly')">💇‍♂️ demo for hair styler</button>
+                <button type="button" class="promptButton" onclick="setCustomPrompt('dirty, demolished, damaged, on fire, dirty background, broken wall, debris, broken woods, smoke')">📷 demo for background change</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('Disney princess, princess, long dress, detailed puffy outfit')">🤴 The Puffy Perfection</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('robotic arms, robot, tech, sci-fi, mechanics, machine, humanoid, android')">🤖 Beep Boop Beep Boop</button>
                 <button type="button" class="promptButton" onclick="setCustomPrompt('bride, puffy dress, long skirt, wedding, bride dress')">👰 Come on, Its Your Wedding</button>
