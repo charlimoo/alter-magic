@@ -269,7 +269,7 @@
   },
   "71": {
     "inputs": {
-      "model_name": "bbox/face_yolov8s.pt"
+      "model_name": "bbox/face_yolov8m.pt"
     },
     "class_type": "UltralyticsDetectorProvider"
   },

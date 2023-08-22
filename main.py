@@ -8,11 +8,13 @@ import uuid
 import json
 from PIL import Image
 import base64
+from io import BytesIO
+import io
 
-server_address = "127.0.0.1:8188"
+
+server_address = "Create and enter a valid server!"
 client_id = str(uuid.uuid4())
 queue_url = "http://" + server_address + "/queue"
-
 #workflows
 configurations = {
     "1": {
@@ -73,51 +75,59 @@ def queue_prompt(prompt):
     response = requests.post(url, data=data, headers={'Content-Type': 'application/json'})
     return response.json()
 
-def get_image(filename, subfolder, folder_type):
-    data = {"filename": filename, "subfolder": subfolder, "type": folder_type}
-    url = "http://{}/view".format(server_address)
-    response = requests.get(url, params=data)
-    return response.content
-
-def get_history(prompt_id):
-    url = "http://{}/history/{}".format(server_address, prompt_id)
-    response = requests.get(url)
-    return response.json()
-
-def get_images(ws, prompt):
+def get_image_name(prompt):
+    progress = 0
+    ws = websocket.WebSocket() 
+    ws.connect("wss://{}/ws?clientId={}".format(server_address, client_id))
     prompt_id = queue_prompt(prompt)['prompt_id']
-    output_images = {}
-    while True:
-        out = ws.recv()
-        if isinstance(out, str):
-            message = json.loads(out)
-            if message['type'] == 'executing':
-                data = message['data']
-                if data['node'] is None and data['prompt_id'] == prompt_id:
-                    break #Execution is done
-        else:
-            continue #previews are binary data
+    try:
+        while True:
+            out = ws.recv()
+            if isinstance(out, str):
+                message = json.loads(out)
+                if message['type'] == 'progress':
+                    value = message['data']['value']
+                    max = message['data']['max']
+                    progress = int(100 * value / max)
+                if message['type'] == 'executed':
+                    if 'images' in message['data']['output']:
+                        images = message['data']['output']['images']
+                        for image in images:
+                            if 'type' in image and image['type'] == 'output':
+                                if 'filename' in image:
+                                    filename = image['filename']
+                                    print(filename)
+                                    url = "http://{}/view?filename={}".format(server_address, filename)
+                if message['type'] == 'executing':
+                    data = message['data']
+                    if data['node'] is None and data['prompt_id'] == prompt_id:
+                        break #Execution is done
+            else:
+                continue #previews are binary data
 
-    history = get_history(prompt_id)[prompt_id]
-    for o in history['outputs']:
-        for node_id in history['outputs']:
-            node_output = history['outputs'][node_id]
-            if 'images' in node_output:
-                images_output = []
-                for image in node_output['images']:
-                    image_data = get_image(image['filename'], image['subfolder'], image['type'])
-                    images_output.append(image_data)
-            output_images[node_id] = images_output
+    finally:
+        ws.close()
+        print("okai im done")
+    return url
 
-    return output_images
+def image_in_base64(url):
+    response = requests.get(url)
+    img = Image.open(BytesIO(response.content))
+    buffered = io.BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue())
+    img_str = img_str.decode('utf-8')
+    img_bytes = base64.b64decode(img_str)
+    generate_image(img_bytes)
+    return img_str
 
 def generate_random_numbers(length=13):
     #Cgetting random seed
     snumbers = string.digits
     return ''.join(random.choice(snumbers) for _ in range(length))
 
-def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image, user_prompt, ksampler):
-    
+def engine(prompt_node, image_node, file_path, chosen_image, user_prompt, ksampler):
+
     # #Load Image
     image_path = os.path.join(os.getcwd(), os.path.join("uploads", chosen_image))
 
@@ -125,7 +135,6 @@ def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image,
     with open(file_path, "r") as json_file:
         json_data = json_file.read()
     prompt = json.loads(json_data)
-
     xprompt_node = str(prompt_node)
     ximage_node = str(image_node)
     xksampler = str(ksampler)  
@@ -139,34 +148,18 @@ def run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image,
     #Changing Prompt
     prompt[ximage_node]["inputs"]["image"] = chosen_image
     prompt[xprompt_node]["inputs"]["text"] = user_prompt
-    prompt[xprompt_node]["inputs"]["Text"] = user_prompt
     prompt[xksampler]["inputs"]["seed"] = generate_random_numbers()
-
-
-    try:
-        ws = websocket.WebSocket() 
-        ws.connect("wss://{}/ws?clientId={}".format(server_address, client_id))
-    except:
-        ws = websocket.WebSocket()
-        ws.connect("ws://{}/ws?clientId={}".format(server_address, client_id))
-
-
-    images = get_images(ws, prompt)
-
-    #getting images
+    
+    
     encoded_images = []
-    for node_id in images:
-        if node_id == target_node_id:
-            for image_data in images[node_id]:
-                encoded_image = base64.b64encode(image_data).decode('utf-8')
-                encoded_images.append(encoded_image)
-                generate_image(image=image_data)
+    encoded_image = image_in_base64(get_image_name(prompt))
+    encoded_images.append(encoded_image)
 
     return encoded_images
 
 def generate_image(image):
     
-    def generate_random_numbers(length=13):
+    def generate_random_numbers(length=6):
         #Cgetting random seed
         snumbers = string.digits
         return ''.join(random.choice(snumbers) for _ in range(length))
@@ -194,7 +187,7 @@ def get_queue_size_from_url(url):
     except Exception as e:
         print("An error occurred:", e)
         return None
-
+    
 app = Flask(__name__, template_folder='templates')
 
 UPLOAD_FOLDER = "uploads"
@@ -202,9 +195,9 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
-    return render_template('index.html', server_address=server_address)
+    return render_template('indexmain.html', server_address=server_address)
 
-@app.route('/run_option', methods=['GET', 'POST'])
+@app.route('/generate', methods=['GET', 'POST'])
 def run_option():
     
     queue = None  # Initialize queue size variable
@@ -240,20 +233,20 @@ def run_option():
     if selected_option in configurations:
         config = configurations[selected_option]
         file_path = config["file_path"]
-        target_node_id = config["target_node_id"]
         ksampler = config["ksampler"]
         prompt_node = config["promptnode"]
         image_node = config["imagenode"]
 
         chosen_image = yfilename
-        encoded_images = run_engine(prompt_node, image_node, file_path, target_node_id, chosen_image, user_prompt, ksampler)
+        encoded_images = engine(prompt_node, image_node, file_path, chosen_image, user_prompt, ksampler)
 
 
         
         return render_template('index.html', encoded_images=encoded_images, queue=queue, server_address=server_address)
     else:
         return "Invalid option."
-    
+
+
 @app.route('/check_queue', methods=['GET'])
 def check_queue():
     url_to_check = queue_url  # Replace with the actual URL for the queue information
@@ -285,6 +278,7 @@ def load_default():
   global server_address
   server_address = "127.0.0.1:8188"
   return "OK"
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
