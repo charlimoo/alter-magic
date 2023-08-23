@@ -283,7 +283,7 @@
   },
   "1000": {
     "inputs": {
-      "filename_prefix": "ComfyUI",
+      "filename_prefix": "creative",
       "images": [
         "892",
         0

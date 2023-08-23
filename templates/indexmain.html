@@ -207,7 +207,6 @@
         }
 
         p {
-            text-align: center;
             font-size: 18px;
             color: #35424a;
             margin-top: 12px;
@@ -268,15 +267,12 @@
         border: none;
         cursor: pointer;
         border-radius: 5px;
-
         display: inline;
         font-size: 12px;
         font-weight: 200;
         font-family: Arial, Helvetica, sans-serif;
         position: relative;
-        padding-bottom:5px;
-
-
+        padding: 10px;
         transition: background-color 0.6s ease;
         display: flex;
         flex-direction: column;
@@ -286,8 +282,8 @@
 
         /* Selected state */
         .custom-radio input[type="radio"]:checked + .radio-visual {
-        background: #aef2e3;
-        color: #0f8467;
+        background: #d0e5ff;
+        color: #1f3653;
         font-weight:600;
         }
 
@@ -301,26 +297,28 @@
           margin: 3px;
         }
         
-        /* Responsive behavior */
+        /* Media query for screens with a maximum width of 768px */
         @media (max-width: 768px) {
-          .flex-item {
-            flex: 1 0 33%;
-          }
+            .flex-item {
+                flex: 1 0 33%;
+            }
         }
         
+        /* Media query for screens with a maximum width of 480px */
         @media (max-width: 480px) {
-          .flex-item {
-            flex: 1 0 33%;
-          }
+            .flex-item {
+                flex: 1 0 33%;
+            }
         }
 
         .custom-radio {
             margin-bottom:0px;
+
         }
 
 
         .custom-radio .radio-visual:hover {
-            background-color: #e0f3ef;
+            background-color: #eff6ff;
         }
 
 
@@ -342,6 +340,39 @@
             display: inline-block;
 
         }
+
+        /* Style the tab buttons */
+        .tab {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          padding: 18px 0px;
+          cursor: pointer;
+          background-color: #f1f4f5;color: rgb(56, 56, 56); border: none; margin-bottom: 0px; transition: background-color 0.3s ease; font-size: 14px; font-family: Arial, Helvetica, sans-serif;
+        }
+    
+        .tab:hover {
+            background-color: #dfe8f3;
+        }
+
+        /* Style the active tab button */
+        .tab.active {
+          background-color: #d0e5ff;
+          color: #1f3653;
+          font-weight:600;
+        }
+      
+        /* Style the content of the tabs */
+        .tab-content {
+          display: none;
+        }
+      
+        /* Show the content of the active tab */
+        .tab-content.active {
+          display: block;
+        }
+
+
 
     </style>
 
@@ -474,234 +505,750 @@
             </select>
             
 
-
-
-            <div id="5" class="options" style="display:none">
-                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 How do you like it to be?</label>
-                <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: none;">
-                <div class="flex-container">
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('Disney princess, princess, long dress, detailed puffy outfit')"> 
-                      <div class="radio-visual">
-                        <img src="{{ url_for('static', filename='1.jpg') }}" class="previewimg">
-                        <img src="{{ url_for('static', filename='1b.png') }}" class="markimg">
-                        <span class="previewspan">🤴 Puffy Perfection</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('robotic arms, robot, tech, sci-fi, mechanics, machine, humanoid, android')"> 
-                      <div class="radio-visual">
-                        <img src="{{ url_for('static', filename='2.jpg') }}" class="previewimg">
-                        <img src="{{ url_for('static', filename='2b.png') }}" class="markimg">
-                        <span class="previewspan">🤖 Beep Boop</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('bride, puffy dress, long skirt, wedding, bride dress')"> 
-                      <div class="radio-visual">
-                        <img src="{{ url_for('static', filename='3.jpg') }}" class="previewimg">
-                        <img src="{{ url_for('static', filename='3b.png') }}" class="markimg">
-                        <span class="previewspan">👰 Wedding</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('military, injured, gun, covered in dirt, dirty, teared cloth, military uniform')"> 
-                      <div class="radio-visual">
-                        <img src="{{ url_for('static', filename='4.jpg') }}" class="previewimg">
-                        <img src="{{ url_for('static', filename='4b.png') }}" class="markimg">
-                        <span class="previewspan">🪖 Aye, Sir</span></div> </label>
-                  </div>
+            <div id="7" class="options" style="display:none">
+                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 Select a Style!</label>
+                
+                <div style="display: flex; width: 100%; justify-content: space-between; border-radius:6px; overflow:hidden;">
+                    <div class="tab" onclick="openTab('tab1')">Natural</div>
+                    <div class="tab" onclick="openTab('tab2')">Urban</div>
+                    <div class="tab" onclick="openTab('tab3')">Fantasy</div>
+                    <div class="tab" onclick="openTab('tab4')">Time Periods</div>
                 </div>
-
-                <div class="flex-container">
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('Iron Man, Marvel character, iron man suit')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='5.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='5b.png') }}" class="markimg">
-                            <span class="previewspan">🦸 Iron Man</span></div> </label>
+                <div id="tab1Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image featuring a sandy beach with waves gently rolling in during a vibrant sunset')"> 
+                        <div class="radio-visual"><span class="previewspan">Sunset by the Ocean</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform the scene to showcase a towering range of snow-capped mountains in all their grandeur')"> 
+                        <div class="radio-visual"><span class="previewspan">Majestic Mountains</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image that captures the mystical atmosphere of an ancient forest, with towering trees and dappled sunlight')"> 
+                        <div class="radio-visual"><span class="previewspan">Enchanted Forest</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Depict a serene landscape with gentle, rolling hills and fields of wildflowers extending into the distance')"> 
+                        <div class="radio-visual"><span class="previewspan">Rolling Hills</span></div></label>
+                        
                     </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('gothic, horror, blood, witch, magic, colored hair')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='6.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='6b.png') }}" class="markimg">
-                            <span class="previewspan">🎃 A Gothic Tale</span></div> </label>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a charming countryside cottage surrounded by peaceful fields and nature')"> 
+                        <div class="radio-visual"><span class="previewspan">Countryside Cottage</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Depict a stunning waterfall cascading down rocks amidst lush vegetation')"> 
+                        <div class="radio-visual"><span class="previewspan">Lush Waterfall</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a desert oasis with date palms, clear skies, and a refreshing waterhole')"> 
+                        <div class="radio-visual"><span class="previewspan">Desert Oasis</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform the scene into a misty lake during early morning, with the water reflecting the serene atmosphere')"> 
+                        <div class="radio-visual"><span class="previewspan">Misty Morning Lake</span></div></label>
+                        
                     </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('batman, fictional character, batman suit')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='7.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='7b.png') }}" class="markimg">
-                            <span class="previewspan">🦇 I Am the Night</span></div> </label>
+                </div>
+                <div id="tab2Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image capturing a bustling city skyline with illuminated skyscrapers and city lights')"> 
+                        <div class="radio-visual"><span class="previewspan">City Skyline</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a vibrant graffiti-covered alley, showcasing urban art')"> 
+                        <div class="radio-visual"><span class="previewspan">Graffiti Alley</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform the setting into a technologically advanced city of the future with holographic advertisements and sleek architecture')"> 
+                        <div class="radio-visual"><span class="previewspan">Futuristic Metropolis</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Depict a charming, cobblestone street in an old European town with quaint buildings and historic charm')"> 
+                        <div class="radio-visual"><span class="previewspan">Historic European Street</span></div></label>
+                        
                     </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('covered in blood, bloody, blood splash, blood on cloth, dress soaked in blood')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='8.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='8b.png') }}" class="markimg">
-                            <span class="previewspan">🩸Dont Be Afraid</span></div> </label>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image that conveys the lively neon-lit nightlife of an urban district with bustling crowds and vibrant lights')"> 
+                        <div class="radio-visual"><span class="previewspan">Neon Nightlife</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a subway station, capturing the gritty urban atmosphere')"> 
+                        <div class="radio-visual"><span class="previewspan">Subway Station</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a bustling open-air market with colorful stalls and diverse goods')"> 
+                        <div class="radio-visual"><span class="previewspan">Open-Air Market</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of an industrial area with factories, warehouses, and gritty urban infrastructure')"> 
+                        <div class="radio-visual"><span class="previewspan">Industrial District</span></div></label>
+                        
                     </div>
-                  </div>
-
-                  <div class="flex-container">
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('holographic dress, holographic, soft colors, see through clothes,bright, pastle colors,very detailed dress, extra layers of fabric, shiny mellow holographic cloth')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='9.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='9b.png') }}" class="markimg">
-                            <span class="previewspan">🌈 Rise and Shine</span></div> </label>
+                </div>
+                <div id="tab3Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of an underwater realm with coral reefs, vibrant marine life, and an ethereal glow')"> 
+                        <div class="radio-visual"><span class="previewspan">Underwater Kingdom</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform the background into a grand library filled with ancient books, magical artifacts, and hidden knowledge')"> 
+                        <div class="radio-visual"><span class="previewspan">Mystical Library</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Depict an observatory atop a mountain, gazing at a star-studded sky and otherworldly phenomena')"> 
+                        <div class="radio-visual"><span class="previewspan">Celestial Observatory</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a majestic castle nestled within an enchanted forest, emanating an aura of magic')"> 
+                        <div class="radio-visual"><span class="previewspan">Enchanted Castle</span></div></label>
+                        
                     </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('money, luxury, fancy cloths, rich, expensive brands, golden rings')"> 
-                        <div class="radio-visual">
-                            <img id="10" src="{{ url_for('static', filename='10.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='10b.png') }}" class="markimg">
-                            <span class="previewspan">🤑 I'll buy you</span></div> </label>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate a cityscape with a steampunk aesthetic, featuring gears, steam-powered machinery, and ornate architecture')"> 
+                        <div class="radio-visual"><span class="previewspan">Steampunk Cityscape</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Depict overgrown ancient ruins, shrouded in mystery and surrounded by lush vegetation')"> 
+                        <div class="radio-visual"><span class="previewspan">Ancient Ruins</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a dreamy cloudscape where the person stands on soft, fluffy clouds with pastel hues')"> 
+                        <div class="radio-visual"><span class="previewspan">Dreamy Cloudscape</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image featuring a nexus of portals, each leading to different fantastical realms')"> 
+                        <div class="radio-visual"><span class="previewspan">Portal Nexus</span></div></label>
+                        
                     </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('suit, tuxedo, tie, clean cloths, professional outfit')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='11.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='11b.png') }}" class="markimg">
-                            <span class="previewspan">🤵 Tuxedo night</span></div> </label>
+                </div>
+                <div id="tab4Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a dusty wild west town with saloons, wooden storefronts, and rugged landscapes')"> 
+                        <div class="radio-visual"><span class="previewspan">Wild West Town</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a lively 1920s jazz club with a band playing, flapper dresses, and Art Deco décor')"> 
+                        <div class="radio-visual"><span class="previewspan">1920s Jazz Club</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform the background to a prehistoric era with towering dinosaurs, lush vegetation, and a primordial atmosphere')"> 
+                        <div class="radio-visual"><span class="previewspan">Prehistoric Landscape</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of Victorian London with cobblestone streets, gas lamps, and elegant architecture')"> 
+                        <div class="radio-visual"><span class="previewspan">Victorian London</span></div></label>
+                        
                     </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('poor, dirty cloths, needy, old dress,torn apart shirts, thin cloths, damaged')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='12.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='12b.png') }}" class="markimg">
-                            <span class="previewspan">🚬 Me Before you</span></div> </label>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Depict a gritty cyberpunk alley with neon signs, holograms, and a futuristic, dystopian vibe')"> 
+                        <div class="radio-visual"><span class="previewspan">Cyberpunk Alley</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a grand Renaissance court with opulent attire, elegant architecture, and artists at work')"> 
+                        <div class="radio-visual"><span class="previewspan">Renaissance Court</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform the scene into an ancient Japanese garden with bonsai trees, stone lanterns, and koi ponds')"> 
+                        <div class="radio-visual"><span class="previewspan">Ancient Japanese Garden</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a futuristic space colony on another planet, showcasing advanced technology and cosmic landscapes')"> 
+                        <div class="radio-visual"><span class="previewspan">Space Colony</span></div></label>
+                        
                     </div>
-                  </div>
-
-                  <div class="flex-container">
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('punk, cyberpunk, steampunk, rock and metal. rock and roll, tattoo, piercing, metal accessories')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='13.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='13b.png') }}" class="markimg">
-                            <span class="previewspan">🤘 Punk</span></div> </label>
-                    </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('girly, pink, clouds, dreamy, angel, soft, e-girl, candy clouds, candy')"> 
-                        <div class="radio-visual">
-                        <img src="{{ url_for('static', filename='14.jpg') }}" class="previewimg">
-                        <img src="{{ url_for('static', filename='14b.png') }}" class="markimg">
-                        <span class="previewspan">🍭 sweet as candy</span></div> </label>
-                    </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('devil, evil, satanic, blood, smoke, demon, hell, beast, burned cloth, red')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='15.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='15b.png') }}" class="markimg">
-                            <span class="previewspan">😈 The devil</span></div> </label>
-                    </div>
-                    
-                    <div class="flex-item">
-                      <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('astronaut, space, white space suit, spaceship')"> 
-                        <div class="radio-visual">
-                            <img src="{{ url_for('static', filename='16.jpg') }}" class="previewimg">
-                            <img src="{{ url_for('static', filename='16b.png') }}" class="markimg">
-                            <span class="previewspan">🚀 Space Suit</span></div> </label>
-                    </div>
-                  </div>
-
+                </div>
+            
             </div>
-
-
 
             <div id="6" class="options" style="display:none">
-                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 How do you like it to be?</label>
-                <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: none;">
-                <div class="flex-container">
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('rainbow color hair, curly, curly hair, wavy, curling, curled, crimped, permed, frizzy, frizzed, kinked, kinky, crinkly, rainbow color hair')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='17.jpg') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='17b.png') }}" class="markimg">
-                      <span class="previewspan">Rainbow Curly</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('blond hair, hair, bobbed hair, coiffed, cropped, cut, shortened, trimmed, blond hair')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='18.jpg') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='18b.png') }}" class="markimg">
-                      <span class="previewspan">Bobbed hair style</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('braided hair, braiding hair')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='19.jpg') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='19b.png') }}" class="markimg">
-                      <span class="previewspan">Braided hair</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('multicolor hair, rainbow hair, hair colors, hair dye, hair color ideas, straight hair, direct hair, pure hair, vertical hair, dead hair, downright hair, due hair, fair hair, flat hair')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='20.jpg') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='20b.png') }}" class="markimg">
-                      <span class="previewspan">Multicolor straight</span></div> </label>
-                  </div>
-                </div>
+                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 Select a Style!</label>
+                <div style="display: flex; width: 100%; justify-content: space-between; border-radius:6px; overflow:hidden;">
+                    <div class="tab" onclick="openTab('tab11')">Classic</div>
+                    <div class="tab" onclick="openTab('tab21')">Trendy</div>
+                    <div class="tab" onclick="openTab('tab31')">Natural</div>
+                    <div class="tab" onclick="openTab('tab41')">Fantasy</div> 
+                    <div class="tab" onclick="openTab('tab51')">Futuristic</div>
+                    <div class="tab" onclick="openTab('tab61')">Vibrant</div>
 
+                </div>
+                <div id="tab11Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with an elegant chignon hairstyle, featuring a low bun with face-framing tendrils, perfect for a formal occasion')"> 
+                        <div class="radio-visual"><span class="previewspan">Elegant Chignon</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person showcasing a sleek, slicked back hairstyle with a glossy finish, exuding confidence and sophistication')"> 
+                        <div class="radio-visual"><span class="previewspan">Slicked Back Perfection</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with classic, shoulder-length curls in a natural brunette shade, capturing a timeless and graceful look')"> 
+                        <div class="radio-visual"><span class="previewspan">Timeless Curls</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person sporting a polished pompadour with tapered sides, showcasing a modern twist on a classic style')"> 
+                        <div class="radio-visual custom-radio"><span class="previewspan">Polished Pompadour</span></div></label>
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with a graceful updo featuring twisted sections and delicate floral accents, radiating a soft and romantic aura.')"> 
+                        <div class="radio-visual custom-radio"><span class="previewspan">Graceful Updo</span></div></label>
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with glamorous, Old Hollywood-inspired waves, cascading down in a rich, deep brown hue, invoking a sense of timeless elegance')"> 
+                        <div class="radio-visual"><span class="previewspan">Glamorous Vintage</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with a regal French twist hairstyle, featuring a neatly rolled updo with a decorative comb, perfect for formal occasions')"> 
+                        <div class="radio-visual"><span class="previewspan">Regal French Twist</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with a sleek side-parted hairstyle, accentuating the shine of jet black hair and exuding a polished and confident aura')"> 
+                        <div class="radio-visual"><span class="previewspan">Sleek Side Part</span></div></label>
+                    </div>
+                </div>
+                <div id="tab21Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with a colorful balayage hairstyle, blending shades of lavender, mint, and peach for a unique and edgy look')"> 
+                        <div class="radio-visual"><span class="previewspan">Colorful Balayage</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with a braided crown hairstyle adorned with small jewels, creating a bohemian-inspired and regal appearance')"> 
+                        <div class="radio-visual"><span class="previewspan">Braided Crown</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person rocking a messy bun with face-framing tendrils and a few loose strands, epitomizing casual yet stylish elegance')"> 
+                        <div class="radio-visual"><span class="previewspan">Messy Bun Chic</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person featuring a futuristic hairstyle with metallic silver tones and geometric patterns, embracing a bold and avant-garde vibe')"> 
+                        <div class="radio-visual custom-radio"><span class="previewspan">Futuristic Metallic</span></div></label>
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                        onclick="setCustomPrompt('Generate an image of a person with neon underlights peeking out from dark hair, adding a pop of electric color to a trendy and dark base')"> 
+                        <div class="radio-visual"><span class="previewspan">Neon Underlights</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with a geometric bob hairstyle featuring sharp angles and metallic accents, capturing a futuristic and edgy vibe')"> 
+                        <div class="radio-visual"><span class="previewspan">Futuristic Geometric Bob</span></div></label>
+                        
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with vibrant rainbow-colored roots that gradually blend into a natural hair color, achieving a playful and bold statement')"> 
+                        <div class="radio-visual"><span class="previewspan">Rainbow Roots</span></div></label>
+                        
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with a hairstyle that combines elegant curls on one side and a shaved, artistic design on the other, showcasing an unconventional yet sophisticated look')"> 
+                        <div class="radio-visual"><span class="previewspan">Mismatched Elegance</span></div></label>
+                    </div>
+                </div>
+                <div id="tab31Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with sunlit highlights that mimic the effects of the sun on soft brown hair, achieving a naturally radiant appearance.')"> 
+                        <div class="radio-visual"><span class="previewspan">Sunlit Highlights</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person wearing effortlessly tousled waves in a warm honey blonde shade, embodying a laid-back and beachy feel.')"> 
+                        <div class="radio-visual"><span class="previewspan">Effortless Waves</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person embracing their natural curls in a rich chestnut hue, celebrating the beauty of natural texture and volume.')"> 
+                        <div class="radio-visual"><span class="previewspan">Au Naturel Curls</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with a simple ponytail secured at the nape of the neck, capturing an understated yet graceful style.')"> 
+                        <div class="radio-visual"><span class="previewspan">Simple Ponytail Grace</span></div></label>
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with earthy-toned hair, incorporating shades of cinnamon, terracotta, and copper for a warm and organic look.')"> 
+                        <div class="radio-visual"><span class="previewspan">Earthy Tones</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with a loose, boho-inspired braid adorned with small flowers, embodying a carefree and nature-loving spirit')"> 
+                        <div class="radio-visual"><span class="previewspan">Effortless Boho Braid</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with sun-kissed balayage hair, featuring warm highlights that mimic the natural effect of the sun, evoking a sunlit summer day')"> 
+                        <div class="radio-visual"><span class="previewspan">Sun-Kissed Balayage</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with wind-blown, textured hair in sandy blonde tones, capturing the essence of a breezy day by the ocean')"> 
+                        <div class="radio-visual"><span class="previewspan">Wind-Blown Texture</span></div></label>
+                    </div>
+                </div>
+                <div id="tab41Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with hair resembling the colors and patterns of a swirling galaxy, incorporating deep purples, blues, and shimmering stars')"> 
+                        <div class="radio-visual"><span class="previewspan">Mystic Galaxy Hair</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with hair designed to look like vibrant crystal gemstones, featuring facets and reflections that catch the light')"> 
+                        <div class="radio-visual"><span class="previewspan">Crystal Gemstone Locks</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with a hairstyle that seamlessly blends fiery reds and cool blues, evoking the dynamic contrast of fire and ice')"> 
+                        <div class="radio-visual"><span class="previewspan">Fire and Ice Fusion</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with intricate braids adorned with tiny flowers and leaves, resembling a magical and enchanting forest scene')"> 
+                        <div class="radio-visual"><span class="previewspan">Enchanted Forest Braids</span></div></label>
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with flowing, iridescent hair that transitions from deep ocean blues to shimmering turquoise, capturing the allure of a mermaid')"> 
+                        <div class="radio-visual"><span class="previewspan">Mermaid Elegance</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with an ethereal elven crown braid that weaves through delicate vines and leaves, conjuring an otherworldly and magical aura')"> 
+                        <div class="radio-visual"><span class="previewspan">Elven Crown Braid</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with hair that transitions from deep red to fiery orange and gold, evoking the colors of dragonfire, bringing a mythical touch to reality')"> 
+                        <div class="radio-visual"><span class="previewspan">Dragonfire Ombre</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with hair designed to resemble a halo of celestial bodies, including stars, moons, and planets, infusing a sense of cosmic wonder')"> 
+                        <div class="radio-visual"><span class="previewspan">Celestial Halo Hair</span></div></label>
+                    </div>
+                </div>
+                <div id="tab51Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with a cyberpunk-inspired hairstyle featuring bold neon streaks and sharp, angular cuts, embodying a futuristic urban aesthetic')"> 
+                        <div class="radio-visual"><span class="previewspan">Cyberpunk Neon</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with hair that seamlessly integrates mechanical elements and organic textures, blurring the line between human and machine')"> 
+                        <div class="radio-visual"><span class="previewspan">Biomechanical Fusion</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with hair that appears to shift and change like a hologram, reflecting an array of vibrant colors and patterns')"> 
+                        <div class="radio-visual"><span class="previewspan">Holographic Mirage</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with a hairstyle that simulates a swirling vortex of virtual reality, incorporating pixelated patterns and digital effects')"> 
+                        <div class="radio-visual"><span class="previewspan">Virtual Reality Vortex</span></div></label>
+                    </div>
+                   
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with a space-inspired hairstyle featuring metallic silver tones and cosmic accents, capturing the essence of futuristic exploration')"> 
+                        <div class="radio-visual"><span class="previewspan">Astronaut Chic</span></div></label>                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with a pixelated pixie cut featuring sharp edges and pixel-like texture, embodying a futuristic and digital aesthetic')"> 
+                        <div class="radio-visual"><span class="previewspan">Pixelated Pixie Cut</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with hair adorned with intricate cybernetic extensions that merge seamlessly with natural hair, blurring the boundary between human and machine')"> 
+                        <div class="radio-visual"><span class="previewspan">Cybernetic Extensions</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with hair styled to resemble neon circuitry patterns, with bright lines of light tracing across the scalp, offering a glimpse into a technological future')"> 
+                        <div class="radio-visual"><span class="previewspan">Neon Circuitry</span></div></label>
+                    </div>
+                </div>
+                <div id="tab61Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p>
+                    <div class="flex-container">
+                    <label class="flex-item custom-radio"> <input type="radio" name="options"
+                        onclick="setCustomPrompt('Create an image of a person with hair that mimics the brushstrokes of a vibrant painting, incorporating bold splashes of color and abstract designs')"> 
+                    <div class="radio-visual"><span class="previewspan">Painted Canvas Hair</span></div></label>
+                    
+                    <label class="flex-item custom-radio"> <input type="radio" name="options"
+                        onclick="setCustomPrompt('Produce an image of a person with hair adorned with streaks of graffiti-like designs in vivid hues, channeling the rebellious spirit of punk culture')"> 
+                    <div class="radio-visual"><span class="previewspan">Graffiti Punk Streaks</span></div></label>
+                    
+                    <label class="flex-item custom-radio"> <input type="radio" name="options"
+                        onclick="setCustomPrompt('Generate an image of a person with hair showcasing a burst of abstract colors, resembling a kaleidoscope of bright and unconventional shades')"> 
+                    <div class="radio-visual"><span class="previewspan">Abstract Color Burst</span></div></label>
+                    
+                    <label class="flex-item custom-radio"> <input type="radio" name="options"
+                        onclick="setCustomPrompt('Create an image of a person with hair styled in a way that pays homage to pop art, featuring bold patterns, comic book elements, and primary colors')"> 
+                    <div class="radio-visual"><span class="previewspan">Pop Art Popularity</span></div></label>
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with hair featuring a spectrum of expressive colors arranged in a harmonious gradient, celebrating the power of self-expression')"> 
+                        <div class="radio-visual"><span class="previewspan">Expressionist Rainbow</span></div></label>
+
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create an image of a person with hair painted in pop surrealism style, combining surreal imagery, bold colors, and dreamlike elements for an eye-catching effect')"> 
+                        <div class="radio-visual"><span class="previewspan">Pop Surrealism Hair</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an image of a person with hair that replicates the fluid, delicate strokes of watercolor paint, showcasing a blend of pastel hues and artistic freedom')"> 
+                        <div class="radio-visual"><span class="previewspan">Abstract Watercolor</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Produce an image of a person with a graffiti-inspired pixie cut, featuring vibrant splashes of color and graffiti lettering, capturing the essence of urban street art')"> 
+                            <div class="radio-visual"><span class="previewspan">Graffiti Chic Pixie</span></div></label>
+                    </div>
+                </div>
             </div>
 
-            <div id="7" class="options" style="display:none">
-                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 How do you like it to be?</label>
-                <input type="text" id="user_prompt" name="user_prompt" placeholder="Throw them naughty thoughts at me :3" style="width: 96%; display: none;">
-                <div class="flex-container">
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('dirty, demolished, damaged, on fire, dirty background, broken wall, debris, broken woods, smoke')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='21.png') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='21b.png') }}" class="markimg">
-                      <span class="previewspan">💥 Ruined</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('jungle, trees, green, meadow, lawn, waterfall, nature')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='22.png') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='22b.png') }}" class="markimg">
-                      <span class="previewspan">🌲 Jungle Vibes</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('on fire, flame, caught fire, burnt, burning, smoke')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='23.png') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='23b.png') }}" class="markimg">
-                      <span class="previewspan">🔥 Caught Fire</span></div> </label>
-                  </div>
-                  
-                  <div class="flex-item">
-                    <label class="custom-radio"> <input type="radio" name="options" onclick="setCustomPrompt('old , old and dirty, aged, covered in dust')"> 
-                      <div class="radio-visual">
-                      <img id="14" src="{{ url_for('static', filename='24.png') }}" class="previewimg">
-                      <img src="{{ url_for('static', filename='24b.png') }}" class="markimg">
-                      <span class="previewspan">💀 Old and Dirty</span></div> </label>
-                  </div>
+            <div id="5" class="options" style="display:none">
+                <label for="user_prompt" id="userPromptLabel" style="margin-top: 20px;">🔮 Select a Style!</label>
+                <div style="display: flex; width: 100%; justify-content: space-between; border-radius:6px; overflow:hidden;">
+                    <div class="tab" onclick="openTab('tab12')">Fantasy</div>
+                    <div class="tab" onclick="openTab('tab22')">Historical</div>
+                    <div class="tab" onclick="openTab('tab32')">Sci-Fi</div>
+                    <div class="tab" onclick="openTab('tab42')">Legend</div>
+                    <div class="tab" onclick="openTab('tab52')">Pop</div>
+                    <div class="tab" onclick="openTab('tab62')">Movie Star</div>
+                    <div class="tab" onclick="openTab('tab72')">Marvel</div>
+                    <div class="tab" onclick="openTab('tab82')">Disney</div>
                 </div>
-
+                <div id="tab12Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate an elven archer outfit with intricate leaf patterns, a longbow, and flowing robes')"> 
+                        <div class="radio-visual"><span class="previewspan">Elven Archer</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create a sorcerer robe adorned with mystical symbols, a staff crackling with energy, and a cosmic-themed cloak')"> 
+                        <div class="radio-visual"><span class="previewspan">Sorcerer Supreme</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design a steampunk aviator attire complete with goggles, leather jacket, utility belts, and mechanical wings')"> 
+                        <div class="radio-visual"><span class="previewspan">Steampunk Aviator</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Craft an enchanted knight armor with glowing runes, a majestic sword, and a helm decorated with majestic antlers')"> 
+                        <div class="radio-visual"><span class="previewspan">Enchanted Knight</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Invent a clockwork mechanic jumpsuit covered in gears, wrenches, and mechanical arms, along with an oil-stained scarf')"> 
+                        <div class="radio-visual"><span class="previewspan">Clockwork Mechanic</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Construct the garb of an ancient Egyptian pharaoh, complete with a headdress, ornate jewelry, and richly detailed robes')"> 
+                        <div class="radio-visual"><span class="previewspan">Ancient Egyptian Pharaoh</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Conjure an attire for a woodland witch, featuring earthy textures, a twisted staff, and a cloak made of leaves and branches')"> 
+                        <div class="radio-visual"><span class="previewspan">Witch of the Woods</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design a pirate captain attire with a tricorn hat, eyepatch, peg leg, and a captain coat adorned with sea charts and compasses')"> 
+                        <div class="radio-visual"><span class="previewspan">Pirate Captain</span></div></label>
+                        
+                    </div>
+                </div>
+                <div id="tab22Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create a lavish Victorian-era noble ensemble complete with corset, top hat, and intricate lace details')"> 
+                        <div class="radio-visual"><span class="previewspan">Victorian Aristocrat</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Craft the armor of a feudal samurai warrior, featuring a detailed helmet, katana, and lacquered armor plates')"> 
+                        <div class="radio-visual"><span class="previewspan">Feudal Samurai</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Generate the outfit of a Renaissance artist including a beret, paint-smeared smock, and a palette of vibrant colors')"> 
+                        <div class="radio-visual"><span class="previewspan">Renaissance Artist</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design the attire of an ancient Roman senator with a toga, laurel wreath, and gold-embroidered stola')"> 
+                        <div class="radio-visual"><span class="previewspan">Ancient Roman Senator</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Reimagine the regal attire of an Egyptian pharaoh consort, featuring intricate jewelry, draped linen, and a cobra-adorned crown')"> 
+                        <div class="radio-visual"><span class="previewspan">Egyptian Pharaoh</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Craft a Wild West outlaw outfit with a rugged leather vest, cowboy hat, bandana, and a revolver holster')"> 
+                        <div class="radio-visual"><span class="previewspan">Wild West Outlaw</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Invent a Victorian detective ensemble, complete with a deerstalker hat, trench coat, magnifying glass, and pocket watch')"> 
+                        <div class="radio-visual"><span class="previewspan">Victorian Detective</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Imagine the playful costume of a medieval jester with mismatched patterns, bells, a jester hat, and painted face')"> 
+                        <div class="radio-visual"><span class="previewspan">Medieval Jester</span></div></label>
+                        
+                    </div>
+                </div>
+                <div id="tab32Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design a cyberpunk hacker outfit with neon accents, augmented reality glasses, a data glove, and circuit pattern details')"> 
+                        <div class="radio-visual"><span class="previewspan">Cyberpunk Hacker</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Craft the futuristic armor of a space marine, complete with powered exoskeleton, energy weapons, and HUD visor')"> 
+                        <div class="radio-visual"><span class="previewspan">Space Marine</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create the rugged outfit of a post-apocalyptic survivor, featuring tattered clothing, scavenged armor pieces, and a gas mask')"> 
+                        <div class="radio-visual"><span class="previewspan">Post-Apocalyptic</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Devise the costume of an android entertainer with LED-lit clothing, articulated limbs, and holographic performance accessories')"> 
+                        <div class="radio-visual"><span class="previewspan">Android Entertainer</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Imagine the robes of a mystical galactic priestess, adorned with constellations, crystal embellishments, and cosmic symbols')"> 
+                        <div class="radio-visual"><span class="previewspan">Galactic Priestess</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Invent a futuristic bounty hunter attire with modular armor, retractable visor, energy blasters, and a utility belt')"> 
+                        <div class="radio-visual"><span class="previewspan">Futuristic Bounty Hunter</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create the fusion of biology and machinery with a bio-mechanical cyborg costume, including exposed circuitry, synthetic skin, and cybernetic limbs')"> 
+                        <div class="radio-visual"><span class="previewspan">Bio-Mechanical Cyborg</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Construct the clothing of a spacefaring nomad, featuring layered fabrics, solar panels, portable equipment, and a telescopic staff')"> 
+                        <div class="radio-visual"><span class="previewspan">Space Nomad</span></div></label>
+                        
+                    </div>
+                </div>
+                <div id="tab42Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design the armor of a Norse valkyrie warrior, complete with winged helmet, fur-lined cape, and a magical sword')"> 
+                        <div class="radio-visual"><span class="previewspan">Norse Valkyrie</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create the majestic clothing of a Greek goddess, with flowing drapery, a laurel wreath crown, and celestial jewelry')"> 
+                        <div class="radio-visual"><span class="previewspan">Greek Goddess</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Imagine the ethereal outfit of a Japanese kitsune spirit, complete with fox mask, colorful kimono, and flowing tails')"> 
+                        <div class="radio-visual"><span class="previewspan">Japanese Kitsune Spirit</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Invent the enchanting attire of an Arabian nights enchantress, featuring silk veils, ornate jewelry, and mystical symbols')"> 
+                        <div class="radio-visual"><span class="previewspan">Arabian Nights</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Craft the fearsome armor of an Aztec jaguar warrior, with jaguar motifs, feathered headdress, and obsidian weaponry')"> 
+                        <div class="radio-visual"><span class="previewspan">Aztec Jaguar Warrior</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design the opulent robes of a Chinese dragon emperor, adorned with dragon motifs, silk brocade, and imperial regalia')"> 
+                        <div class="radio-visual"><span class="previewspan">Chinese Dragon Emperor</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Create the regal clothing of an African tribal chief, featuring colorful textiles, beaded accessories, and symbolic patterns')"> 
+                        <div class="radio-visual"><span class="previewspan">African Tribal Chief</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Imagine the alluring attire of sea sirens, with seaweed-adorned dresses, shells, pearls, and oceanic jewelry')"> 
+                        <div class="radio-visual"><span class="previewspan">Sirens of the Sea</span></div></label>
+                        
+                    </div>
+                </div>
+                <div id="tab52Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design the costume of a masked superhero vigilante, featuring a symbol on the chest, utility belt, and a billowing cape')"> 
+                        <div class="radio-visual"><span class="previewspan">Superhero Vigilante</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Craft the outfit of an iconic space explorer, with a jumpsuit, mission patch, futuristic boots, and a space helmet')"> 
+                        <div class="radio-visual"><span class="previewspan">Iconic Space Explorer</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Devise the costume of a classic video game character, with pixelated textures, blocky shapes, and signature accessories')"> 
+                        <div class="radio-visual"><span class="previewspan">Classic Video Game</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Invent the robes of a legendary wizard, complete with a pointy hat, mystical staff, and a voluminous beard')"> 
+                        <div class="radio-visual"><span class="previewspan">Legendary Wizard</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design the clothing of a sci-fi time traveler, featuring a futuristic jacket, high-tech gadgetry, and a time-travel device')"> 
+                        <div class="radio-visual"><span class="previewspan">Sci-Fi Time Traveler</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Imagine the attire of a fairy tale protagonist, with humble clothing, a satchel, and a touch of magical charm')"> 
+                        <div class="radio-visual"><span class="previewspan">Fairy Tale Protagonist</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Craft the outfit of a vibrant 1980s pop star, featuring neon colors, sequins, leg warmers, and a big hairdo')"> 
+                        <div class="radio-visual"><span class="previewspan">1980s Pop Star</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Design the clothing of a zombie apocalypse survivor, featuring torn clothing, improvised armor, and zombie-slaying accessories')"> 
+                        <div class="radio-visual"><span class="previewspan">Zombie Apocalypse</span></div></label>
+                        
+                    </div>
+                </div>
+                <div id="tab62Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Capture the essence of Indiana Jones with his trademark fedora, leather jacket, whip, and a weathered satchel')"> 
+                        <div class="radio-visual"><span class="previewspan">Indiana Jones</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Channel Audrey Hepburn elegance with a chic little black dress, pearl accessories, oversized sunglasses, and a tiara from Breakfast at Tiffany')">
+                            <div class="radio-visual"><span class="previewspan">Audrey Hepburn</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Emulate Tom Cruise Top Gun character with aviator sunglasses, bomber jacket, flight suit, and a cocky grin')"> 
+                        <div class="radio-visual"><span class="previewspan">Tom Cruise</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Recreate Marilyn Monroe iconic white dress moment with a flowing white gown, red lipstick, platinum curls, and a beauty mark')"> 
+                        <div class="radio-visual"><span class="previewspan">Marilyn Monroe</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Pay homage to Marty McFly with a retro 80s outfit, red puffer vest, high-top sneakers, and a futuristic skateboard')"> 
+                        <div class="radio-visual"><span class="previewspan">Michael J. Fox</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform into Captain Jack Sparrow with layered pirate attire, dreadlocks, bandana, beaded accessories, and a hint of eccentricity')"> 
+                        <div class="radio-visual"><span class="previewspan">Johnny Depp</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Embody Bruce Willis John McClane from "Die Hard" with a gritty NYPD tank top, jeans, holster, and a determined expression')"> 
+                        <div class="radio-visual"><span class="previewspan">Bruce Willis</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform into Harry Potter with round glasses, Hogwarts robes, a wand, and a lightning bolt scar on your forehead')"> 
+                        <div class="radio-visual"><span class="previewspan">Daniel Radcliffe</span></div></label>
+                        
+                    </div>
+                </div>
+                <div id="tab72Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform into Spider-Man with the classic red and blue suit, web shooters, and the distinctive spider emblem on the chest')"> 
+                        <div class="radio-visual"><span class="previewspan">Spider-Man</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Emulate Iron Man with the sleek red and gold armor, arc reactor chest piece, and repulsor gauntlets')"> 
+                        <div class="radio-visual"><span class="previewspan">Iron Man</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Channel Thor power with the Asgardian armor, enchanted Mjolnir, and a red cape flowing in the wind')"> 
+                        <div class="radio-visual"><span class="previewspan">Mighty Thor</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Become Captain America with the star-spangled shield, blue uniform, red boots, and the iconic A on the helmet')"> 
+                        <div class="radio-visual"><span class="previewspan">Captain America</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Embody Black Widow with the tactical black suit, wrist gauntlets, and a belt of spy gadgets')"> 
+                        <div class="radio-visual"><span class="previewspan">Black Widow</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform into Hulk with shredded purple pants, green body paint, and an intimidating, muscle-bound physique')"> 
+                        <div class="radio-visual"><span class="previewspan">Hulk</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Capture Deadpool irreverent style with a red and black suit, mask, katana, and humorous accessories')"> 
+                        <div class="radio-visual"><span class="previewspan">Deadpool</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Emulate Black Panther regal costume with a vibranium suit, clawed gloves, and a necklace with a panther pendant')"> 
+                        <div class="radio-visual"><span class="previewspan">Black Panther</span></div></label>
+                        
+                    </div>
+                </div>
+                <div id="tab82Content" class="tab-content">
+                    <p style="align: left; font-size: 13.3px">💡 Select a Prompt!</p><div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform into Belle with her golden ballgown, blue ribbon, and a single rose accessory')"> 
+                        <div class="radio-visual"><span class="previewspan">Belle</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Emulate Ariel mermaid form with a flowing red wig, purple seashell bikini top, and a shimmering tail')"> 
+                        <div class="radio-visual"><span class="previewspan">Ariel</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Channel Cinderella with her blue ballgown, glass slipper, and a sparkling tiara')"> 
+                        <div class="radio-visual"><span class="previewspan">Cinderella</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Become Mulan with her armor from the Matchmaker scene, along with a sword and her father helmet')"> 
+                        <div class="radio-visual"><span class="previewspan">Mulan</span></div></label>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Transform into Merida with her fiery red hair, green dress, and a bow and arrow')"> 
+                        <div class="radio-visual"><span class="previewspan">Merida</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Emulate Rapunzel with her long blonde wig, purple dress, and a frying pan prop')"> 
+                        <div class="radio-visual"><span class="previewspan">Rapunzel</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Channel Elsa magic with her ice-blue gown, snowflake accessories, and a dramatic cape')"> 
+                        <div class="radio-visual"><span class="previewspan">Elsa</span></div></label>
+                        
+                        <label class="flex-item custom-radio"> <input type="radio" name="options"
+                            onclick="setCustomPrompt('Become Tiana with her signature lily pad green gown, tiara, and a frog companion')"> 
+                        <div class="radio-visual"><span class="previewspan">Tiana</span></div></label>
+                        
+                    </div>
+                </div>
             </div>
 
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <hr style="border-width: 2px; border-color: #f3f3f3; border-style: solid; margin-top: 30px; margin-bottom: 30px;">
-            
+            <input type="text" id="user_prompt" name="user_prompt" placeholder="Prompt Goes Here - dont touch" style="width: 96%; display: block; margin-top:18px;">
+
             <input type="submit" id="submit_button" value="Cast Spell ⭐" style="font-size: 16px; font-weight: bold; background: linear-gradient(135deg, hsla(189, 86%, 64%, 1) 0%, hsla(277, 100%, 66%, 1) 50%, hsla(218, 88%, 59%, 1) 100%);">
-            </form>
+        </form>
 
         <div>
 
@@ -923,6 +1470,30 @@
 
     </script>
 
+
+
+
+    <script>
+        function openTab(tabName) {
+          // Hide all tab contents
+          var tabContents = document.getElementsByClassName("tab-content");
+          for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+          }
+        
+          // Show the selected tab content
+          document.getElementById(tabName + "Content").classList.add("active");
+        
+          // Remove "active" class from all tab buttons
+          var tabs = document.getElementsByClassName("tab");
+          for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+          }
+        
+          // Add "active" class to the clicked tab button
+          document.querySelector(`[onclick="openTab('${tabName}')"]`).classList.add("active");
+        }
+        </script>
 
 
 

@@ -1,9 +1,9 @@
 {
   "57": {
     "inputs": {
-      "grow_mask_by": 2,
+      "grow_mask_by": 6,
       "pixels": [
-        "684",
+        "134",
         0
       ],
       "vae": [
@@ -11,7 +11,7 @@
         4
       ],
       "mask": [
-        "711",
+        "1007",
         0
       ]
     },
@@ -20,8 +20,8 @@
   "64": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 1063953977217274,
-      "steps": 20,
+      "seed": 565894109231433,
+      "steps": 25,
       "cfg": 1.5999755859375,
       "sampler_name": "dpmpp_2m",
       "scheduler": "karras",
@@ -54,12 +54,12 @@
   "85": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 1066379247421214,
+      "seed": 113307888299940,
       "steps": 15,
       "cfg": 3.000030517578125,
       "sampler_name": "dpmpp_2m",
       "scheduler": "karras",
-      "denoise": 0.57,
+      "denoise": 0.6659991455078124,
       "preview_method": "auto",
       "vae_decode": "true",
       "model": [
@@ -75,8 +75,8 @@
         0
       ],
       "latent_image": [
-        "64",
-        3
+        "1012",
+        0
       ],
       "optional_vae": [
         "64",
@@ -87,7 +87,7 @@
   },
   "133": {
     "inputs": {
-      "image": "Messi-1.jpg.webp",
+      "image": "photo_4239777726911850434_c (5).jpg",
       "choose file to upload": "image"
     },
     "class_type": "LoadImage"
@@ -294,6 +294,15 @@
     },
     "class_type": "Mask Morphology"
   },
+  "628": {
+    "inputs": {
+      "images": [
+        "625",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
   "631": {
     "inputs": {
       "model_name": "bbox/face_yolov8m.pt"
@@ -347,9 +356,58 @@
     },
     "class_type": "BboxDetectorSEGS"
   },
+  "645": {
+    "inputs": {
+      "mask": [
+        "731",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "646": {
+    "inputs": {
+      "image": [
+        "647",
+        0
+      ]
+    },
+    "class_type": "ImageInvert"
+  },
+  "647": {
+    "inputs": {
+      "radius": 3,
+      "sigma_factor": 1,
+      "image": [
+        "648",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "648": {
+    "inputs": {
+      "distance": 5,
+      "op": "dilate",
+      "image": [
+        "645",
+        0
+      ]
+    },
+    "class_type": "Mask Morphology"
+  },
+  "649": {
+    "inputs": {
+      "images": [
+        "646",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
   "650": {
     "inputs": {
-      "model_name": "bbox/hand_yolov8s.pt"
+      "model_name": "bbox/hand_yolov8n.pt"
     },
     "class_type": "UltralyticsDetectorProvider"
   },
@@ -400,6 +458,108 @@
     },
     "class_type": "BboxDetectorSEGS"
   },
+  "654": {
+    "inputs": {
+      "mask": [
+        "737",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "655": {
+    "inputs": {
+      "image": [
+        "656",
+        0
+      ]
+    },
+    "class_type": "ImageInvert"
+  },
+  "656": {
+    "inputs": {
+      "radius": 7,
+      "sigma_factor": 1,
+      "image": [
+        "657",
+        0
+      ]
+    },
+    "class_type": "Blur"
+  },
+  "657": {
+    "inputs": {
+      "distance": 5,
+      "op": "dilate",
+      "image": [
+        "654",
+        0
+      ]
+    },
+    "class_type": "Mask Morphology"
+  },
+  "658": {
+    "inputs": {
+      "images": [
+        "655",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "659": {
+    "inputs": {
+      "model_name": "segm/person_yolov8m-seg.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider"
+  },
+  "660": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader"
+  },
+  "661": {
+    "inputs": {
+      "detection_hint": "center-1",
+      "dilation": 0,
+      "threshold": 0.93,
+      "bbox_expansion": 0,
+      "mask_hint_threshold": 0.7,
+      "mask_hint_use_negative": "False",
+      "sam_model": [
+        "660",
+        0
+      ],
+      "segs": [
+        "662",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "SAMDetectorSegmented"
+  },
+  "662": {
+    "inputs": {
+      "threshold": 0.46363647460937507,
+      "dilation": 10,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "bbox_detector": [
+        "659",
+        0
+      ],
+      "image": [
+        "134",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS"
+  },
   "668": {
     "inputs": {
       "text": "naked++, nude+, refined, smooth, body imperfection, tattoo-",
@@ -440,6 +600,15 @@
     },
     "class_type": "CLIPTextEncode"
   },
+  "673": {
+    "inputs": {
+      "images": [
+        "700",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
   "684": {
     "inputs": {
       "kind": "RGB",
@@ -449,6 +618,13 @@
       ]
     },
     "class_type": "Change Channel Count"
+  },
+  "698": {
+    "inputs": {
+      "radius": 12,
+      "sigma_factor": 1
+    },
+    "class_type": "Blur"
   },
   "699": {
     "inputs": {
@@ -484,6 +660,15 @@
       ]
     },
     "class_type": "MaskToImage"
+  },
+  "702": {
+    "inputs": {
+      "images": [
+        "701",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
   },
   "705": {
     "inputs": {
@@ -526,6 +711,16 @@
       "iterations": 17,
       "masks": [
         "739",
+        0
+      ]
+    },
+    "class_type": "Mask Dilate Region"
+  },
+  "718": {
+    "inputs": {
+      "iterations": 17,
+      "masks": [
+        "661",
         0
       ]
     },
@@ -579,6 +774,30 @@
     },
     "class_type": "SolidMask"
   },
+  "737": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "operation": "add",
+      "destination": [
+        "738",
+        0
+      ],
+      "source": [
+        "661",
+        0
+      ]
+    },
+    "class_type": "MaskComposite"
+  },
+  "738": {
+    "inputs": {
+      "value": 0,
+      "width": 512,
+      "height": 512
+    },
+    "class_type": "SolidMask"
+  },
   "739": {
     "inputs": {
       "x": 0,
@@ -605,13 +824,13 @@
   },
   "754": {
     "inputs": {
-      "resize_behavior": "resize",
+      "resize_behavior": "source_size",
       "image_base": [
         "134",
         0
       ],
       "image_to_paste": [
-        "85",
+        "1013",
         5
       ],
       "mask": [
@@ -621,9 +840,98 @@
     },
     "class_type": "Paste By Mask"
   },
+  "839": {
+    "inputs": {
+      "images": [
+        "754",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "857": {
+    "inputs": {
+      "ckpt_name": "dreamshaper_8.safetensors",
+      "vae_name": "Baked VAE",
+      "clip_skip": -1,
+      "lora_name": "None",
+      "lora_model_strength": 0.7745452880859379,
+      "lora_clip_strength": 1,
+      "positive": "",
+      "negative": "",
+      "empty_latent_width": 512,
+      "empty_latent_height": 512,
+      "batch_size": 1
+    },
+    "class_type": "Efficient Loader"
+  },
+  "865": {
+    "inputs": {
+      "mask": [
+        "1007",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
+  },
+  "866": {
+    "inputs": {
+      "images": [
+        "865",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "867": {
+    "inputs": {
+      "masks_a": [
+        "735",
+        0
+      ],
+      "masks_b": [
+        "731",
+        0
+      ]
+    },
+    "class_type": "Masks Add"
+  },
+  "869": {
+    "inputs": {
+      "masks_a": [
+        "871",
+        0
+      ],
+      "masks_b": [
+        "870",
+        0
+      ]
+    },
+    "class_type": "Masks Subtract"
+  },
+  "870": {
+    "inputs": {
+      "iterations": 1,
+      "masks": [
+        "867",
+        0
+      ]
+    },
+    "class_type": "Mask Erode Region"
+  },
+  "871": {
+    "inputs": {
+      "iterations": 17,
+      "masks": [
+        "737",
+        0
+      ]
+    },
+    "class_type": "Mask Dilate Region"
+  },
   "903": {
     "inputs": {
-      "filename_prefix": "V4",
+      "filename_prefix": "V4.4",
       "images": [
         "754",
         0
@@ -631,10 +939,210 @@
     },
     "class_type": "SaveImage"
   },
-  "999": {
+  "1001": {
     "inputs": {
-      "Text": "superman, fictional character"
+      "text": "hair",
+      "image": [
+        "134",
+        0
+      ],
+      "clipseg_model": [
+        "1002",
+        0
+      ]
     },
-    "class_type": "Text"
+    "class_type": "CLIPSeg Masking"
+  },
+  "1002": {
+    "inputs": {
+      "model": "CIDAS/clipseg-rd64-refined"
+    },
+    "class_type": "CLIPSeg Model Loader"
+  },
+  "1005": {
+    "inputs": {
+      "threshold": 190,
+      "mask": [
+        "1001",
+        0
+      ]
+    },
+    "class_type": "ToBinaryMask"
+  },
+  "1006": {
+    "inputs": {
+      "masks_a": [
+        "869",
+        0
+      ],
+      "masks_b": [
+        "1005",
+        0
+      ]
+    },
+    "class_type": "Masks Subtract"
+  },
+  "1007": {
+    "inputs": {
+      "iterations": 5,
+      "masks": [
+        "1006",
+        0
+      ]
+    },
+    "class_type": "Mask Erode Region"
+  },
+  "1011": {
+    "inputs": {
+      "pixels": [
+        "64",
+        5
+      ],
+      "vae": [
+        "64",
+        4
+      ]
+    },
+    "class_type": "VAEEncode"
+  },
+  "1012": {
+    "inputs": {
+      "samples": [
+        "1011",
+        0
+      ],
+      "mask": [
+        "1007",
+        0
+      ]
+    },
+    "class_type": "SetLatentNoiseMask"
+  },
+  "1013": {
+    "inputs": {
+      "sampler_state": "Sample",
+      "seed": 975099212001907,
+      "steps": 15,
+      "cfg": 3.000030517578125,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.4420001220703123,
+      "preview_method": "auto",
+      "vae_decode": "true",
+      "model": [
+        "85",
+        0
+      ],
+      "positive": [
+        "1024",
+        0
+      ],
+      "negative": [
+        "85",
+        2
+      ],
+      "latent_image": [
+        "1017",
+        0
+      ],
+      "optional_vae": [
+        "85",
+        4
+      ]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "1017": {
+    "inputs": {
+      "samples": [
+        "1018",
+        0
+      ],
+      "mask": [
+        "1019",
+        0
+      ]
+    },
+    "class_type": "SetLatentNoiseMask"
+  },
+  "1018": {
+    "inputs": {
+      "pixels": [
+        "85",
+        5
+      ],
+      "vae": [
+        "85",
+        4
+      ]
+    },
+    "class_type": "VAEEncode"
+  },
+  "1019": {
+    "inputs": {
+      "mask": [
+        "735",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "1020": {
+    "inputs": {
+      "version": "v1.1",
+      "safe": "enable",
+      "image": [
+        "85",
+        5
+      ]
+    },
+    "class_type": "HEDPreprocessor"
+  },
+  "1021": {
+    "inputs": {
+      "strength": 0.5800000000000003,
+      "conditioning": [
+        "1023",
+        0
+      ],
+      "control_net": [
+        "1022",
+        0
+      ],
+      "image": [
+        "1020",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply"
+  },
+  "1022": {
+    "inputs": {
+      "control_net_name": "softedge.safetensors"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "1023": {
+    "inputs": {
+      "text": "naked++, nude+, refined, smooth, body imperfection, tattoo-",
+      "clip": [
+        "546",
+        5
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "1024": {
+    "inputs": {
+      "conditioning_1": [
+        "1021",
+        0
+      ],
+      "conditioning_2": [
+        "592",
+        0
+      ]
+    },
+    "class_type": "ConditioningCombine"
   }
 }

@@ -2,7 +2,7 @@
   "10": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 169886438006392,
+      "seed": 190036164960000,
       "steps": 20,
       "cfg": 4.20001220703125,
       "sampler_name": "dpmpp_2m",
@@ -51,7 +51,7 @@
   },
   "12": {
     "inputs": {
-      "image": "36901875fd7c43458143714c435cf1a6.jpg",
+      "image": "istockphoto-1471886621-170667a.webp",
       "choose file to upload": "image"
     },
     "class_type": "LoadImage"
@@ -137,7 +137,7 @@
   },
   "39": {
     "inputs": {
-      "text": "old , old and dirty, aged, covered in dust",
+      "text": " Transform the background into a lush rooftop garden in the heart of the city, featuring greenery and relaxation.",
       "clip": [
         "11",
         5
@@ -147,7 +147,7 @@
   },
   "41": {
     "inputs": {
-      "strength": 0.75,
+      "strength": 0.4,
       "conditioning": [
         "39",
         0
@@ -183,7 +183,7 @@
   "45": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 418771959735739,
+      "seed": 730043722024809,
       "steps": 20,
       "cfg": 3.5999755859375,
       "sampler_name": "dpmpp_2m",
@@ -216,7 +216,7 @@
   },
   "57": {
     "inputs": {
-      "strength": 0.25,
+      "strength": 0.4,
       "conditioning": [
         "39",
         0
@@ -269,7 +269,7 @@
   },
   "71": {
     "inputs": {
-      "model_name": "bbox/face_yolov8m.pt"
+      "model_name": "bbox/face_yolov8s.pt"
     },
     "class_type": "UltralyticsDetectorProvider"
   },
@@ -367,7 +367,7 @@
   },
   "90": {
     "inputs": {
-      "strength": 0.6699999999999999,
+      "strength": 0.4,
       "conditioning": [
         "41",
         0

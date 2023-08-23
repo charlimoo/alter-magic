@@ -1,7 +1,7 @@
 {
   "133": {
     "inputs": {
-      "image": "مریم+امیرجلالی+در+آرایشگاه+های+کانادا+++عکس.jpg",
+      "image": "photo_1001228667532192305_c.jpg",
       "choose file to upload": "image"
     },
     "class_type": "LoadImage"
@@ -518,7 +518,7 @@
   "1031": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 365635558430489,
+      "seed": 672157049965142,
       "steps": 25,
       "cfg": 4.399993896484375,
       "sampler_name": "dpmpp_2m",
@@ -594,7 +594,7 @@
   },
   "1058": {
     "inputs": {
-      "text": "gothic, horror, blood, witch, magic, colored hair",
+      "text": "Design the clothing of a sci-fi time traveler, featuring a futuristic jacket, high-tech gadgetry, and a time-travel device",
       "clip": [
         "1032",
         5
@@ -604,7 +604,7 @@
   },
   "1059": {
     "inputs": {
-      "text": "(deformed, distorted, disfigured:1.3), drawing, cartoon, painting, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, (mutated hands and fingers:1.4), disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation, (worst quality, low quality:1.4)",
+      "text": "(deformed, distorted, disfigured:1.3), 3d, animation, 3d modeling, digital art, drawing, cartoon, painting, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, (mutated hands and fingers:1.4), disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation, (worst quality, low quality:1.4)",
       "clip": [
         "1032",
         5
@@ -650,7 +650,7 @@
   },
   "1069": {
     "inputs": {
-      "strength": 0.9,
+      "strength": 1,
       "conditioning": [
         "1058",
         0
@@ -782,8 +782,8 @@
   "1085": {
     "inputs": {
       "sampler_state": "Sample",
-      "seed": 792302107292324,
-      "steps": 25,
+      "seed": 880990096930247,
+      "steps": 20,
       "cfg": 3.199981689453125,
       "sampler_name": "dpmpp_2m",
       "scheduler": "karras",
@@ -896,7 +896,7 @@
     "inputs": {
       "filename_prefix": "Cosplay",
       "images": [
-        "1060",
+        "1154",
         0
       ]
     },
@@ -1186,5 +1186,120 @@
       ]
     },
     "class_type": "PreviewImage"
+  },
+  "1153": {
+    "inputs": {
+      "sampler_state": "Sample",
+      "seed": 769198979746835,
+      "steps": 15,
+      "cfg": 3.199981689453125,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.4060003662109372,
+      "preview_method": "auto",
+      "vae_decode": "true",
+      "model": [
+        "1085",
+        0
+      ],
+      "positive": [
+        "1085",
+        1
+      ],
+      "negative": [
+        "1085",
+        2
+      ],
+      "latent_image": [
+        "1156",
+        0
+      ],
+      "optional_vae": [
+        "1085",
+        4
+      ]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "1154": {
+    "inputs": {
+      "resize_behavior": "source_size",
+      "image_base": [
+        "134",
+        0
+      ],
+      "image_to_paste": [
+        "1153",
+        5
+      ],
+      "mask": [
+        "1161",
+        0
+      ]
+    },
+    "class_type": "Paste By Mask"
+  },
+  "1155": {
+    "inputs": {
+      "images": [
+        "1031",
+        5
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "1156": {
+    "inputs": {
+      "samples": [
+        "1157",
+        0
+      ],
+      "mask": [
+        "1159",
+        0
+      ]
+    },
+    "class_type": "SetLatentNoiseMask"
+  },
+  "1157": {
+    "inputs": {
+      "pixels": [
+        "1085",
+        5
+      ],
+      "vae": [
+        "1085",
+        4
+      ]
+    },
+    "class_type": "VAEEncode"
+  },
+  "1159": {
+    "inputs": {
+      "mask": [
+        "1160",
+        0
+      ]
+    },
+    "class_type": "InvertMask"
+  },
+  "1160": {
+    "inputs": {
+      "iterations": 3,
+      "masks": [
+        "867",
+        0
+      ]
+    },
+    "class_type": "Mask Erode Region"
+  },
+  "1161": {
+    "inputs": {
+      "mask": [
+        "1159",
+        0
+      ]
+    },
+    "class_type": "MaskToImage"
   }
 }

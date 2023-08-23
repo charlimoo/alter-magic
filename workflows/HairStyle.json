@@ -1,7 +1,7 @@
 {
   "1": {
     "inputs": {
-      "image": "download (10) (2).jpg",
+      "image": "photo_3451320210671380538_c (1).jpg",
       "choose file to upload": "image"
     },
     "class_type": "LoadImage"
@@ -20,6 +20,15 @@
       ]
     },
     "class_type": "MaskToImage"
+  },
+  "11": {
+    "inputs": {
+      "images": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
   },
   "13": {
     "inputs": {
@@ -122,7 +131,7 @@
       "guide_size": 256,
       "guide_size_for": true,
       "max_size": 768,
-      "seed": 855368230928095,
+      "seed": 542235234161463,
       "steps": 20,
       "cfg": 8,
       "sampler_name": "dpmpp_2m",
@@ -147,6 +156,24 @@
     },
     "class_type": "DetailerForEachDebugPipe"
   },
+  "26": {
+    "inputs": {
+      "images": [
+        "24",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
+  "27": {
+    "inputs": {
+      "images": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
   "30": {
     "inputs": {
       "threshold": 100,
@@ -159,7 +186,7 @@
   },
   "43": {
     "inputs": {
-      "seed": 490030267085764,
+      "seed": 1092678106520063,
       "steps": 20,
       "cfg": 8,
       "sampler_name": "dpmpp_2m",
@@ -179,7 +206,7 @@
   "44": {
     "inputs": {
       "pixels": [
-        "24",
+        "67",
         0
       ],
       "vae": [
@@ -210,6 +237,15 @@
       ]
     },
     "class_type": "VAEDecode"
+  },
+  "47": {
+    "inputs": {
+      "images": [
+        "46",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
   },
   "48": {
     "inputs": {
@@ -251,12 +287,21 @@
     },
     "class_type": "MaskToImage"
   },
+  "55": {
+    "inputs": {
+      "images": [
+        "54",
+        0
+      ]
+    },
+    "class_type": "PreviewImage"
+  },
   "67": {
     "inputs": {
       "guide_size": 256,
       "guide_size_for": true,
       "max_size": 768,
-      "seed": 1023492756406656,
+      "seed": 300660297508800,
       "steps": 20,
       "cfg": 8,
       "sampler_name": "dpmpp_2m",
@@ -319,7 +364,7 @@
         2
       ],
       "positive": [
-        "106",
+        "113",
         0
       ],
       "negative": [
@@ -331,7 +376,7 @@
   },
   "76": {
     "inputs": {
-      "text": "curly, curly hair, wavy, curling, curled, crimped, permed, frizzy, frizzed, kinked, kinky, crinkly",
+      "text": "Generate an image of a person with intricate braids adorned with tiny flowers and leaves, resembling a magical and enchanting forest scene",
       "clip": [
         "78",
         1
@@ -341,7 +386,7 @@
   },
   "77": {
     "inputs": {
-      "text": "bad hair, ugly, deformed hair",
+      "text": "bad hair, ugly, deformed hair, face, human, eyes, person",
       "clip": [
         "78",
         1
@@ -453,46 +498,41 @@
     },
     "class_type": "SaveImage"
   },
-  "105": {
+  "113": {
     "inputs": {
-      "text": "hair",
-      "clip": [
-        "78",
-        1
-      ]
-    },
-    "class_type": "CLIPTextEncode"
-  },
-  "106": {
-    "inputs": {
-      "conditioning_1": [
+      "strength": 1,
+      "conditioning": [
         "76",
         0
       ],
-      "conditioning_2": [
-        "105",
-        0
-      ]
-    },
-    "class_type": "ConditioningCombine"
-  },
-  "107": {
-    "inputs": {
-      "conditioning_1": [
-        "108",
+      "control_net": [
+        "114",
         0
       ],
-      "conditioning_2": [
-        "106",
+      "image": [
+        "115",
         0
       ]
     },
-    "class_type": "ConditioningCombine"
+    "class_type": "ControlNetApply"
   },
-  "108": {
+  "114": {
     "inputs": {
-      "text": "realistic, photorealism, natural"
+      "control_net_name": "openpose.safetensors"
     },
-    "class_type": "CLIPTextEncode"
+    "class_type": "ControlNetLoader"
+  },
+  "115": {
+    "inputs": {
+      "detect_hand": "enable",
+      "detect_body": "enable",
+      "detect_face": "enable",
+      "version": "v1.1",
+      "image": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "OpenposePreprocessor"
   }
 }

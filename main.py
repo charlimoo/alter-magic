@@ -78,7 +78,11 @@ def queue_prompt(prompt):
 def get_image_name(prompt):
     progress = 0
     ws = websocket.WebSocket() 
-    ws.connect("wss://{}/ws?clientId={}".format(server_address, client_id))
+    try:
+        ws.connect("wss://{}/ws?clientId={}".format(server_address, client_id))
+    except:
+        ws.connect("ws://{}/ws?clientId={}".format(server_address, client_id))
+
     prompt_id = queue_prompt(prompt)['prompt_id']
     try:
         while True:
@@ -148,6 +152,7 @@ def engine(prompt_node, image_node, file_path, chosen_image, user_prompt, ksampl
     #Changing Prompt
     prompt[ximage_node]["inputs"]["image"] = chosen_image
     prompt[xprompt_node]["inputs"]["text"] = user_prompt
+    prompt[xprompt_node]["inputs"]["Text"] = user_prompt
     prompt[xksampler]["inputs"]["seed"] = generate_random_numbers()
     
     
@@ -196,6 +201,11 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route('/')
 def index():
     return render_template('indexmain.html', server_address=server_address)
+
+@app.route('/v1')
+def index1():
+    return render_template('v1.html', server_address=server_address)
+
 
 @app.route('/generate', methods=['GET', 'POST'])
 def run_option():
@@ -281,4 +291,4 @@ def load_default():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=80, debug=True)
